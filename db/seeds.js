@@ -21,9 +21,7 @@ const testData = {
   ],
   transactions: marchData
 };
-// const parsedData = JSON.parse(marchData);
 
-console.log(testData);
 
 mongoose.connect(dbURI, (err, db) => {
   db.dropDatabase()
