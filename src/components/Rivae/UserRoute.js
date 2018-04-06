@@ -5,7 +5,7 @@ import { VictoryPie, VictoryLabel, VictoryLine, VictoryChart, VictoryAxis, Victo
 import PieChartDiv from '../../assets/styledComponents/PieChartDiv';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
 
-
+import dataVis from '../../lib/dataVisualization';
 
 class UserRoute extends React.Component{
   state = {
@@ -19,18 +19,9 @@ class UserRoute extends React.Component{
       balance: '',
       spendingByCategory: [],
       spendingByPayee: [],
-      balanceByDate: []
+      balanceByDate: [],
+      absoluteSpendingByDate: []
     }
-  }
-
-  absoluteGraphData = (dataObject,) => {
-    return Object.entries(dataObject)
-      .map(entry => Object.assign( { x: entry[0], y: Math.abs(entry[1]) }));
-  }
-
-  GraphData = (dataObject,) => {
-    return Object.entries(dataObject)
-      .map(entry => Object.assign( { x: entry[0], y: entry[1] }));
   }
 
   componentDidMount() {
@@ -39,20 +30,21 @@ class UserRoute extends React.Component{
   }
 
   render() {
-
     return (
       <div className="container">
         <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance}</h3>
         <VictoryChart
           theme={VictoryTheme.material}
-          width={960}
+          width={1280}
           height={250}
+
+          sortOrder='ascending'
         >
           <VictoryLine
-            data={this.GraphData(this.state.user.balanceByDate)}
-            sortOrder="descending"
-            x={d => d.x.substring(8,10)}
+            data={dataVis.graphData(this.state.user.balanceByDate)}
+
+            x={d => d.x.substring(4,10)}
             y={d => d.y}
             labels={d => {
               if (d.x.substring(8,10) % 4 === 0 ) return d.y.toFixed(2);
@@ -66,7 +58,7 @@ class UserRoute extends React.Component{
             <h3 className="subtitle is-3 has-text-centered">Spending By Category</h3>
             <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
             <VictoryPie
-              data={this.absoluteGraphData(this.state.user.spendingByCategory)}
+              data={dataVis.absoluteGraphData(this.state.user.spendingByCategory)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
               // labelComponent={
@@ -100,7 +92,7 @@ class UserRoute extends React.Component{
             <h3 className="subtitle is-3 has-text-centered">Spending By Payee</h3>
             <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
             <VictoryPie
-              data={this.absoluteGraphData(this.state.user.spendingByPayee)}
+              data={dataVis.absoluteGraphData(this.state.user.spendingByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
               // labelComponent={
@@ -130,13 +122,9 @@ class UserRoute extends React.Component{
             />
           </PieChartDiv>
         </FlexRowDiv>
-
-
-
       </div>
     );
   }
-
 }
 
 export default UserRoute;

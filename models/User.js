@@ -132,8 +132,8 @@ userSchema
   });
 
 userSchema
-  .virtual('balanceByDate')
-  .get(function findBalanceByDate() {
+  .virtual('absoluteSpendingByDate')
+  .get(function findabsoluteSpendingByDate() {
     // unique dates
     let dates = [];
     this.transactions
@@ -150,6 +150,31 @@ userSchema
       // Fill each Category individually, find spending, sum it and add as value
       datesObject[date] = this.transactions
         .filter(transaction => transaction.date === date)
+        .map(transaction => transaction.amount)
+        .reduce((sum, amount) => sum + amount, 0);
+    });
+
+    return datesObject ;
+  });
+
+userSchema
+  .virtual('balanceByDate')
+  .get(function findbalanceByDate() {
+    // unique dates
+    let dates = [];
+    this.transactions
+      .map(transaction => transaction.date)
+      .reduce((unique, date) => {
+        if (!unique.includes(date)) unique.push(date);
+        return dates = unique;
+      } ,[]);
+    // Creating Object to hold spending data
+    const datesObject = {};
+    // Filling Object with data
+    dates.forEach(date => {
+      // Fill each Category individually, find spending, sum it and add as value
+      datesObject[date] = this.transactions
+        .filter(transaction => transaction.date <= date)
         .map(transaction => transaction.amount)
         .reduce((sum, amount) => sum + amount, 0);
     });
