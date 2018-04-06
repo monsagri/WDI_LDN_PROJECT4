@@ -43,10 +43,11 @@ class UserRoute extends React.Component{
     return (
       <div className="container">
         <h1 className="title is-1">{this.state.user.username}</h1>
-        <h3 className="title is-3">Balance: {this.state.user.balance}</h3>
+        <h3 className="title is-3">Current Balance: {this.state.user.balance}</h3>
         <FlexRowDiv>
           <PieChartDiv>
             <h3 className="subtitle is-3 has-text-centered">Spending By Category</h3>
+            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
             <VictoryPie
               data={spendingPieData}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
@@ -80,6 +81,7 @@ class UserRoute extends React.Component{
 
           <PieChartDiv>
             <h3 className="subtitle is-3 has-text-centered">Spending By Payee</h3>
+            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
             <VictoryPie
               data={payeePieData}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}

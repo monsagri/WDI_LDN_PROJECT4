@@ -24,10 +24,11 @@ const testData = {
 
 
 mongoose.connect(dbURI, (err, db) => {
+  console.log(testData);
   db.dropDatabase()
     .then(() => console.log('connected to db and cleared it'))
     .then(() => User.create(testData))
-    .then((users) => console.log(`${users.length} Users created`))
+    .then((users) => console.log(users))
     .catch(err => console.log(err))
     .finally(() => mongoose.connection.close());
 });
