@@ -5,6 +5,7 @@ const transactionSchema = new mongoose.Schema({
   id: { type: String, required: true },
   created: { type: Date, required: true },
   amount: { type: Number, required: true },
+  date: { type: String },
   currency: { type: String },
   local_amount: { type: Number },
   local_currency: { type: String },
@@ -130,7 +131,31 @@ userSchema
     return payeesObject;
   });
 
+userSchema
+  .virtual('balanceByDate')
+  .get(function findBalanceByDate() {
+    // unique dates
+    let dates = [];
+    this.transactions
+      .map(transaction => transaction.date)
+      .reduce((unique, date) => {
+        if (!unique.includes(date)) unique.push(date);
+        return dates = unique;
+      } ,[]);
+    // Creating Object to hold spending data
+    const datesObject = {};
+    dates.forEach(date => datesObject[date] = 0);
+    // Filling Object with data
+    dates.forEach(date => {
+      // Fill each Category individually, find spending, sum it and add as value
+      datesObject[date] = this.transactions
+        .filter(transaction => transaction.date === date)
+        .map(transaction => transaction.amount)
+        .reduce((sum, amount) => sum + amount, 0);
+    });
 
+    return datesObject ;
+  });
 
 // Add the virtual for passwordConfirmation
 userSchema
