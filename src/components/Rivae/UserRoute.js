@@ -30,6 +30,7 @@ class UserRoute extends React.Component{
   }
 
   render() {
+    console.log(dataVis.graphData(this.state.user.balanceByDate).reverse());
     return (
       <div className="container">
         <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
@@ -42,7 +43,7 @@ class UserRoute extends React.Component{
           sortOrder='ascending'
         >
           <VictoryLine
-            data={dataVis.graphData(this.state.user.balanceByDate)}
+            data={dataVis.graphData(this.state.user.balanceByDate).reverse()}
 
             x={d => d.x.substring(4,10)}
             y={d => d.y}

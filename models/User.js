@@ -173,7 +173,7 @@ userSchema
     // Filling Object with data
     dates.forEach(date => {
       // Fill each Category individually, find spending, sum it and add as value
-      datesObject[date] = this.transactions
+      datesObject[new Date(date)] = this.transactions
         .filter(transaction => transaction.date <= date)
         .map(transaction => transaction.amount)
         .reduce((sum, amount) => sum + amount, 0);
