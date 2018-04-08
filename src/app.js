@@ -4,24 +4,30 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'bulma';
 
+import FlashMessages from './components/common/FlashMessages';
+import Navbar from './components/common/Navbar';
+
 import HomeRoute from './components/Rivae/HomeRoute';
 import UserRoute from './components/Rivae/UserRoute';
+
+import RegisterRoute from './components/auth/Register';
+import LoginRoute from './components/auth/Login';
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <main>
-          {/* <Navbar />
-          <FlashMessages /> */}
+          <Navbar />
+          <FlashMessages />
 
           <Switch>
             {/* <Route path="/bangers/new" component={NewRoute} />
             <ProtectedRoute path="/bangers/:id/edit" component={EditRoute} /> */}
             <Route path="/users/:id" component={UserRoute} />
-            {/* <Route path="/bangers" component={IndexRoute} />
+            {/* <Route path="/bangers" component={IndexRoute} /> */}
             <Route path="/register" component={RegisterRoute} />
-            <Route path="/login" component={LoginRoute} /> */}
+            <Route path="/login" component={LoginRoute} />
             <Route path="/" component={HomeRoute} />
             {/* <Route component={NotFound} /> */}
           </Switch>

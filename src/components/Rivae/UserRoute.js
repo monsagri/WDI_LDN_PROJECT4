@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { VictoryPie, VictoryLabel, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
+import { VictoryPie, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 
 import PieChartDiv from '../../assets/styledComponents/PieChartDiv';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
