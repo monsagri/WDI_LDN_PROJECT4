@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { VictoryPie, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 
@@ -29,11 +30,17 @@ class UserRoute extends React.Component{
       .then(res => this.setState({ user: res.data}, () => console.log(this.state)));
   }
 
+  newTransaction= () => {
+    axios.post(`/api/users/${this.props.match.params.id}`)
+      .then(res => this.setState({ user: res.data}, () => console.log(this.state)));
+  }
+
   render() {
     console.log(dataVis.graphData(this.state.user.balanceByDate).reverse());
     return (
       <div className="container">
         <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
+        <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance}</h3>
         <VictoryChart
           theme={VictoryTheme.material}

@@ -9,6 +9,7 @@ import Navbar from './components/common/Navbar';
 
 import HomeRoute from './components/Rivae/HomeRoute';
 import UserRoute from './components/Rivae/UserRoute';
+import NewTransactionRoute from './components/Rivae/NewTransactionRoute';
 
 import RegisterRoute from './components/auth/Register';
 import LoginRoute from './components/auth/Login';
@@ -24,8 +25,8 @@ class App extends React.Component {
           <Switch>
             {/* <Route path="/bangers/new" component={NewRoute} />
             <ProtectedRoute path="/bangers/:id/edit" component={EditRoute} /> */}
+            <Route path="/users/:id/new" component={NewTransactionRoute} />
             <Route path="/users/:id" component={UserRoute} />
-            {/* <Route path="/bangers" component={IndexRoute} /> */}
             <Route path="/register" component={RegisterRoute} />
             <Route path="/login" component={LoginRoute} />
             <Route path="/" component={HomeRoute} />

@@ -34,8 +34,10 @@ function getAllTransactionsRoute(req, res, next) {
 }
 
 function createTransactionRoute(req, res, next) {
+  console.log(req.params.id);
   User.findById(req.params.userId)
     .then(user => {
+      console.log(user);
       const newTransaction = req.body;
       user.transactions.push(newTransaction);
       user.save();
@@ -60,7 +62,7 @@ function editTransactionRoute(req, res, next) {
       const transaction = user.transactions.id(req.params.transactionId);
       transaction.remove();
       user.transactions.push(editedTransaction);
-      user.save();  
+      user.save();
       res.json(editedTransaction);
     })
     .catch(next);

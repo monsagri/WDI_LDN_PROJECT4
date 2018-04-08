@@ -9,11 +9,12 @@ router.route('/users')
 router.route('/users/:userId')
   .get(users.show)
   .put(users.update)
+  .post(users.newTransaction)
   .delete(users.delete);
 
 router.route('/users/:userId/transactions')
-  .get(users.getAllTransactions)
-  .post(users.newTransaction);
+  .get(users.getAllTransactions);
+
 
 router.route('/users/:userId/transactions/:transactionId')
   .get(users.getOneTransaction)

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const transactionSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  created: { type: Date, required: true },
+  id: { type: String },
+  created: { type: Date },
   amount: { type: Number, required: true },
   date: { type: String },
   currency: { type: String },
