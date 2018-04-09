@@ -17,9 +17,13 @@ class UserRoute extends React.Component{
       email: '',
       transactions: [],
       username: '',
-      balance: '',
+      balance: 0,
+      totalSpending: 0,
+      totalIncome: 0,
       spendingByCategory: [],
+      incomeByCategory: [],
       spendingByPayee: [],
+      incomeByPayee: [],
       balanceByDate: [],
       absoluteSpendingByDate: []
     }
@@ -27,7 +31,12 @@ class UserRoute extends React.Component{
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
-      .then(res => this.setState({ user: res.data}, () => console.log(this.state)));
+
+      .then(res => {
+        console.log('getting res data',res.data);
+        this.setState({ user: res.data }, () => console.log('state post setState',this.state));
+        console.log('finished setting state');
+      });
   }
 
   newTransaction= () => {
@@ -36,12 +45,14 @@ class UserRoute extends React.Component{
   }
 
   render() {
-    console.log(dataVis.graphData(this.state.user.balanceByDate).reverse());
+    // console.log(dataVis.graphData(this.state.user.balanceByDate).reverse());
     return (
       <div className="container">
         <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
         <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance}</h3>
+
+        {/* Balance Graph */}
         <VictoryChart
           theme={VictoryTheme.material}
           width={1280}
@@ -61,6 +72,7 @@ class UserRoute extends React.Component{
           />
           <VictoryAxis/>
         </VictoryChart>
+        {/* Spending Pies */}
         <FlexRowDiv>
           <PieChartDiv>
             <h3 className="subtitle is-3 has-text-centered">Spending By Category</h3>
@@ -101,6 +113,76 @@ class UserRoute extends React.Component{
             <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.spendingByPayee)}
+              colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
+              labels={(d) => d.a}
+              // labelComponent={
+              //   <VictoryLabel
+              //     angle={30}
+              //     capHeight={0.5}
+              //   />}
+              events={[{ target: 'data', eventHandlers: {
+                onClick: () => {
+                  return [
+                    {
+                      target: 'data',
+                      mutation: (props) => {
+                        const fill = props.style && props.style.fill;
+                        return fill === '#c43a31' ? null : { style: { fill: '#c43a31' } };
+                      }
+                    }, {
+                      target: 'labels',
+                      mutation: (props) => {
+                        return props.text === 'clicked' ? null : { text: (d) => d.x };
+                      }
+                    }
+                  ];
+                }
+              }
+              }]}
+            />
+          </PieChartDiv>
+        </FlexRowDiv>
+        {/* Income Pies */}
+        <FlexRowDiv>
+          <PieChartDiv>
+            <h3 className="subtitle is-3 has-text-centered">Income By Category</h3>
+            <h4 className="subtitle is-4 has-text-centered">Total Income: {this.state.user.totalIncome.toFixed(2)}</h4>
+            <VictoryPie
+              data={dataVis.absoluteGraphData(this.state.user.incomeByCategory)}
+              colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
+              labels={(d) => d.a}
+              // labelComponent={
+              //   <VictoryLabel
+              //     angle={30}
+              //     capHeight={0.5}
+              //   />}
+              events={[{ target: 'data', eventHandlers: {
+                onClick: () => {
+                  return [
+                    {
+                      target: 'data',
+                      mutation: (props) => {
+                        const fill = props.style && props.style.fill;
+                        return fill === '#c43a31' ? null : { style: { fill: '#c43a31' } };
+                      }
+                    }, {
+                      target: 'labels',
+                      mutation: (props) => {
+                        return props.text === 'clicked' ? {text: ''} : { text: (d) => d.x };
+                      }
+                    }
+                  ];
+                }
+              }
+              }]}
+            />
+          </PieChartDiv>
+
+          <PieChartDiv>
+            <h3 className="subtitle is-3 has-text-centered">Income By Payee</h3>
+            <h4 className="subtitle is-4 has-text-centered">Total Income: {this.state.user.totalIncome.toFixed(2)}</h4>
+            <VictoryPie
+              data={dataVis.absoluteGraphData(this.state.user.incomeByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
               // labelComponent={

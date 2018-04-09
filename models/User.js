@@ -94,6 +94,32 @@ userSchema
     return categoriesObject ;
   });
 
+userSchema
+  .virtual('incomeByCategory')
+  .get(function findCategoryIncome() {
+    // uniqueCategories
+    let categories = [];
+    this.transactions
+      .map(transaction => transaction.category)
+      .reduce((unique, category) => {
+        if (!unique.includes(category)) unique.push(category);
+        return categories = unique;
+      } ,[]);
+    // Creating Object to hold spending data
+    const categoriesObject = {};
+    categories.forEach(category => categoriesObject[category] = 0);
+    // Filling Object with data
+    categories.forEach(category => {
+      // Fill each Category individually, find spending, sum it and add as value
+      categoriesObject[category] = this.transactions
+        .filter(transaction => transaction.category === category && transaction.amount > 0)
+        .map(transaction => transaction.amount)
+        .reduce((sum, amount) => sum + amount, 0);
+    });
+
+    return categoriesObject ;
+  });
+
 // This isn't ideal, Monzo only has a description field, not a Payee field
 userSchema
   .virtual('uniquePayees')
@@ -125,6 +151,29 @@ userSchema
       // Fill each Payee individually, find spending, sum it and add as value
       payeesObject[payee] = this.transactions
         .filter(transaction => transaction.description === payee && transaction.amount < 0)
+        .map(transaction => transaction.amount)
+        .reduce((sum, amount) => sum + amount, 0);
+    });
+    return payeesObject;
+  });
+
+userSchema
+  .virtual('incomeByPayee')
+  .get(function findPayeeIncome() {
+    let payees = [];
+    this.transactions
+      .map(transaction => transaction.description)
+      .reduce((unique, description) => {
+        if (!unique.includes(description)) unique.push(description);
+        return payees = unique;
+      } ,[]);
+    const payeesObject = {};
+    payees.forEach(payee => payeesObject[payee] = 0);
+    // Filling Object with data
+    payees.forEach(payee => {
+      // Fill each Payee individually, find spending, sum it and add as value
+      payeesObject[payee] = this.transactions
+        .filter(transaction => transaction.description === payee && transaction.amount > 0)
         .map(transaction => transaction.amount)
         .reduce((sum, amount) => sum + amount, 0);
     });
