@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
+const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, newCategoryChange, newCategorySave, data}) => {
   console.log('data in BudgetForm is',data);
   const currentMonth = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
   console.log('current Month is', currentMonth);
@@ -66,6 +66,17 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
           )}
         </tbody>
       </table>
+      {data.newCategory &&
+      <div>
+        <input
+          type="text"
+          name={'newCategory'}
+          onChange={newCategoryChange}
+        />
+        <button className="button" type="button" onClick={newCategorySave}>Save Category</button>
+      </div>
+      }
+      <button className="button" type="button" onClick={openCategory}>Add a category</button>
       <button className="button is-primary">Submit</button>
     </form>
   );

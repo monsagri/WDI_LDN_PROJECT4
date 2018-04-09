@@ -93,7 +93,7 @@ class BudgetRoute extends React.Component {
       .then(() => this.props.history.push(`users/${this.props.match.params.id}/budget`));
   }
 
-  removeBudgetCategory= (category) => {
+  removeBudgetCategory = (category) => {
     console.log(category);
     axios({
       method: 'delete',
@@ -109,6 +109,31 @@ class BudgetRoute extends React.Component {
       });
   }
 
+  openCategory = () => {
+    this.setState({ newCategory: true });
+  }
+
+  newCategoryChange = ({ target: { name, value } }) => {
+    console.log(name, value);
+    this.setState({ [name]: value }, () => console.log(this.state));
+  }
+
+  newCategorySave = () => {
+    console.log(this.state.newCategory);
+    axios({
+      method: 'post',
+      url: `/api/users/${Auth.getPayload().sub}/budget/`,
+      data: { category: this.state.newCategory}
+    })
+      .then(res => {
+        console.log(res.data.categories);
+        const editedUser = {...this.state.user};
+        editedUser.categories = res.data.categories;
+        console.log('edited User is',editedUser);
+        this.setState({ user: editedUser, newCategory: false });
+      });
+  }
+
   render(){
     return (
       <div className="container">
@@ -119,6 +144,9 @@ class BudgetRoute extends React.Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           removeBudgetCategory={this.removeBudgetCategory}
+          openCategory={this.openCategory}
+          newCategoryChange={this.newCategoryChange}
+          newCategorySave={this.newCategorySave}
           data={this.state}
         />
       </div>
