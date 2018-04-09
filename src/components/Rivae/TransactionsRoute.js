@@ -22,7 +22,7 @@ class BudgetRoute extends React.Component {
     console.log(id);
     axios({
       method: 'delete',
-      url: `/api/users/${Auth.getPayload().sub}/transactions/${id}`,
+      url: `/api/users/${Auth.getPayload().sub}/transaction/${id}`,
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => this.setState({ transactions: res.data }));
