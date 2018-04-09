@@ -3,7 +3,7 @@ mongoose.Promise = require('bluebird');
 const { dbURI } = require('../config/environment');
 
 
-const User = require('../models/user');
+const User = require('../models/User');
 const marchData = require('./data/test12.json');
 
 function addDate() {
