@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Form = ({ handleSubmit, handleChange, data}) => {
+const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
   console.log('data in BudgetForm is',data);
   const currentMonth = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
   console.log('current Month is', currentMonth);
@@ -14,6 +14,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
             <th>Current Spending</th>
             <th>Amount Budgeted</th>
             <th>Difference</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +54,13 @@ const Form = ({ handleSubmit, handleChange, data}) => {
                     ? currentMonth.categories.find(budget => budget.name === category).budgeted
                     : 0
               }
+              </td>
+              <td>
+                <button
+                  onClick={() => removeBudgetCategory(category)}
+                  type="button">
+                X
+                </button>
               </td>
             </tr>
           )}

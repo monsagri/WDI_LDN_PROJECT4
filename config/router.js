@@ -14,17 +14,19 @@ router.route('/users/:userId')
 
 router.route('/users/:userId/budget')
   .get(users.showBudget)
-  .put(users.editBudget);
+  .post(users.addBudgetCategory)
+  .put(users.editBudget)
+  .delete(users.removeBudgetCategory);
 
 router.route('/users/:userId/transactions')
   .get(users.getAllTransactions);
 
 
-router.route('/users/:userId/transactions/:transactionId')
+router.route('/users/:userId/transaction/:transactionId')
   .get(users.getOneTransaction)
   .delete(users.deleteTransaction);
 
-router.route('/users/:userId/transactions/:transactionId/edit')
+router.route('/users/:userId/transaction/:transactionId/edit')
   .get(users.getOneTransaction)
   .put(users.editTransaction);
 

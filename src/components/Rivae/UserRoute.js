@@ -52,18 +52,17 @@ class UserRoute extends React.Component{
         <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
         <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
         <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
-        <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance}</h3>
+        <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance.toFixed(2)}</h3>
 
         {/* Balance Graph */}
         <VictoryChart
           theme={VictoryTheme.material}
           width={1280}
           height={250}
-
           sortOrder='ascending'
         >
           <VictoryLine
-            data={dataVis.graphData(this.state.user.balanceByDate).reverse()}
+            data={dataVis.graphData(this.state.user.balanceByDate)}
 
             x={d => d.x.substring(4,10)}
             y={d => d.y}

@@ -33,6 +33,16 @@ function showBudgetRoute(req,res,next) {
     .catch(next);
 }
 
+function addBudgetCategoryRoute(req,res,next) {
+  User.findById(req.params.userId)
+    .then( user => {
+      user.categories.push(req.body.category);
+      user.save();
+      res.json(user);
+    })
+    .catch(next);
+}
+
 function editBudgetRoute(req,res,next) {
   User.findById(req.params.userId)
     .then(user => {
@@ -43,6 +53,19 @@ function editBudgetRoute(req,res,next) {
     })
     .catch(next);
 }
+
+function deleteBudgetCategoryRoute(req,res,next) {
+  User.findById(req.params.userId)
+    .then( user => {
+      const index = user.categories.indexOf(req.body.category);
+      console.log(index);
+      user.categories.splice(index, 1);
+      user.save();
+      res.json(user.categories);
+    })
+    .catch(next);
+}
+
 
 function getAllTransactionsRoute(req, res, next) {
   User.findById(req.params.userId)
@@ -64,9 +87,11 @@ function createTransactionRoute(req, res, next) {
 }
 
 function getOneTransactionRoute(req, res, next) {
+  console.log(req.params);
   User.findById(req.params.userId)
     .then(user => {
       const transaction = user.transactions.id(req.params.transactionId);
+      console.log(transaction);
       res.json(transaction);
     })
     .catch(next);
@@ -86,10 +111,13 @@ function editTransactionRoute(req, res, next) {
 }
 
 function deleteTransactionRoute(req, res, next) {
+  console.log(req.params);
   User.findById(req.params.userId)
     .then(user => {
       const transaction = user.transactions.id(req.params.transactionId);
+      console.log('transaction found is', transaction);
       transaction.remove();
+      user.save();
       res.json(user.transactions);
     })
     .catch(next);
@@ -107,5 +135,7 @@ module.exports = {
   editTransaction: editTransactionRoute,
   deleteTransaction: deleteTransactionRoute,
   showBudget: showBudgetRoute,
-  editBudget: editBudgetRoute
+  editBudget: editBudgetRoute,
+  addBudgetCategory: addBudgetCategoryRoute,
+  removeBudgetCategory: deleteBudgetCategoryRoute
 };

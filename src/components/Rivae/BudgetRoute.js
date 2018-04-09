@@ -78,11 +78,6 @@ class BudgetRoute extends React.Component {
       const currentBudget = currentMonth.categories.find(budget => budget.name === name);
       currentBudget.budgeted = parseInt(value, 10);
     }
-    //   editedUser.budget.find(month => month.currentMonth === this.state.currentMonth).categories.push({
-    //     name: name,
-    //     budgeted: parseInt(value, 10)
-    //   });
-    // }
     this.setState({ user: {...editedUser}}, () => console.log(this.state));
   }
 
@@ -98,6 +93,22 @@ class BudgetRoute extends React.Component {
       .then(() => this.props.history.push(`users/${this.props.match.params.id}/budget`));
   }
 
+  removeBudgetCategory= (category) => {
+    console.log(category);
+    axios({
+      method: 'delete',
+      url: `/api/users/${Auth.getPayload().sub}/budget/`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
+      data: {category: category}
+    })
+      .then(res => {
+        const editedUser = {...this.state.user};
+        editedUser.categories = res.data;
+        console.log('edited User is',editedUser);
+        this.setState({ user: editedUser });
+      });
+  }
+
   render(){
     return (
       <div className="container">
@@ -107,6 +118,7 @@ class BudgetRoute extends React.Component {
         <BudgetForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          removeBudgetCategory={this.removeBudgetCategory}
           data={this.state}
         />
       </div>
