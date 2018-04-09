@@ -46,11 +46,11 @@ class Navbar extends React.Component {
         <div
           className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-end">
-            <Link className="navbar-item" to={`/users/${Auth.getPayload().sub}`}>Your Profile</Link>
-            <Link className="navbar-item" to={`/users/${Auth.getPayload().sub}/transactions`}>Your Transactions</Link>
-            <Link className="navbar-item" to={`/users/${Auth.getPayload().sub}/budget`}>Your Budget</Link>
-            {Auth.getToken() ? '' : <Link className="navbar-item" to="/register">Sign Up</Link>}
-            {Auth.getToken() ? '' : <Link className="navbar-item" to="/login">Log In</Link>}
+            {Auth.getToken() && <Link className="navbar-item" to={`/users/${Auth.getPayload().sub}`}>Your Profile</Link>}
+            {Auth.getToken() && <Link className="navbar-item" to={`/users/${Auth.getPayload().sub}/transactions`}>Your Transactions</Link>}
+            {Auth.getToken() && <Link className="navbar-item" to={`/users/${Auth.getPayload().sub}/budget`}>Your Budget</Link>}
+            {!Auth.getToken() && <Link className="navbar-item" to="/register">Sign Up</Link>}
+            {!Auth.getToken() && <Link className="navbar-item" to="/login">Log In</Link>}
             {Auth.getToken() ? <Link className="navbar-item" onClick={Auth.logout} to="/">Log Out</Link> : ''}
 
           </div>

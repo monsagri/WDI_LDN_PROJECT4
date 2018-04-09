@@ -23,29 +23,11 @@ const budgetCategories = new mongoose.Schema({
   budgeted: { type: Number, default: 0 }
 });
 
-// this schema needs virtuals to calculate the current spending for its categories
-
-// also a virtual to calculate the difference between budgeted an spending
-
 const budgetMonthSchema = new mongoose.Schema({
   monthStarting: { type: Date },
   currentMonth: { type: Number },
   categories: [ budgetCategories ]
 });
-
-// budgetMonthSchema.pre('save', function(next) {
-//   if(!this.isNew) return next();
-//
-//   this.categories = [
-//     { name: '' },
-//     { name: '' },
-//     { name: '' },
-//     { name: '' },
-//     { name: '' },
-//     { name: '' }
-//   ];
-//   next();
-// });
 
 
 
@@ -66,11 +48,15 @@ userSchema.pre('save', function(next) {
   if(!this.isNew) return next();
 
   this.categories = [
-    'rent',
-    'insurance',
-    'groceries',
+    'cash',
     'eating_out',
-    'drinks'
+    'entertainment',
+    'expenses',
+    'general',
+    'groceries',
+    'shopping',
+    'transport',
+    'travel'
   ];
   next();
 });
@@ -126,7 +112,7 @@ userSchema
         return categories = unique;
       } ,[]);
     // Creating Object to hold spending data
-    const categoriesObject = {};
+    const categoriesObject = {initial: 0};
     categories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
     categories.forEach(category => {
@@ -152,7 +138,7 @@ userSchema
         return categories = unique;
       } ,[]);
     // Creating Object to hold spending data
-    const categoriesObject = {};
+    const categoriesObject = {initial: 0};
     categories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
     categories.forEach(category => {
@@ -190,7 +176,7 @@ userSchema
         if (!unique.includes(description)) unique.push(description);
         return payees = unique;
       } ,[]);
-    const payeesObject = {};
+    const payeesObject = {initial: 0};
     payees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
     payees.forEach(payee => {
@@ -213,7 +199,7 @@ userSchema
         if (!unique.includes(description)) unique.push(description);
         return payees = unique;
       } ,[]);
-    const payeesObject = {};
+    const payeesObject = {initial: 0};
     payees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
     payees.forEach(payee => {
@@ -238,7 +224,7 @@ userSchema
         return dates = unique;
       } ,[]);
     // Creating Object to hold spending data
-    const datesObject = {};
+    const datesObject = {initial: 0};
     dates.forEach(date => datesObject[date] = 0);
     // Filling Object with data
     dates.forEach(date => {
@@ -264,7 +250,7 @@ userSchema
         return dates = unique;
       } ,[]);
     // Creating Object to hold spending data
-    const datesObject = {};
+    const datesObject = {initial: 0};
     // Filling Object with data
     dates.forEach(date => {
       // Fill each Category individually, find spending, sum it and add as value

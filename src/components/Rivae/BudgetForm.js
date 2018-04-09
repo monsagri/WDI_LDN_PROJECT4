@@ -2,8 +2,8 @@ import React from 'react';
 
 const Form = ({ handleSubmit, handleChange, data}) => {
   console.log('data in BudgetForm is',data);
-  console.log('budget in BudgetForm is',data.user.budget);
-  const currentBudget = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
+  const currentMonth = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
+  console.log('current Month is', currentMonth);
   return (
 
     <form onSubmit={handleSubmit}>
@@ -31,8 +31,10 @@ const Form = ({ handleSubmit, handleChange, data}) => {
                 <input
                   type="number"
                   name={`${category}`}
-                  value={ currentBudget
-                    ? currentBudget.budgeted
+                  value={ currentMonth
+                    ? currentMonth.categories.find(budget => budget.name === category)
+                      ?  currentMonth.categories.find(budget => budget.name === category).budgeted
+                      : 0
                     : 0}
                   onChange={handleChange}
                 />
@@ -41,14 +43,14 @@ const Form = ({ handleSubmit, handleChange, data}) => {
                 // This checks whether there has been any spending
                 data.user.spendingByCategory[category]
                 // if so, check whether a budget was set
-                  ? data.user.budget[category]
+                  ? currentMonth.categories.find(budget => budget.name === category)
                     // If so, subtract spending from budget to see remainig spending money
-                    ? (data.user.spendingByCategory[category] + data.user.budget[category].budgeted).toFixed(2)
+                    ? (data.user.spendingByCategory[category] + currentMonth.categories.find(budget => budget.name === category).budgeted).toFixed(2)
                     // if not, simply display the spending
                     : data.user.spendingByCategory[category].toFixed(2)
                   // if nothing was spent, display either budgeted amount or 0
-                  : data.user.budget[category]
-                    ? data.user.budget[category].budgeted
+                  : currentMonth.categories.find(budget => budget.name === category)
+                    ? currentMonth.categories.find(budget => budget.name === category).budgeted
                     : 0
               }
               </td>

@@ -19,14 +19,20 @@ class BudgetRoute extends React.Component {
       categories: [],
       totalSpending: 0,
       totalIncome: 0,
-      spendingByCategory: [],
-      incomeByCategory: [],
-      spendingByPayee: [],
-      incomeByPayee: [],
-      balanceByDate: [],
-      absoluteSpendingByDate: []
+      spendingByCategory: {},
+      incomeByCategory: {},
+      spendingByPayee: {},
+      incomeByPayee: {},
+      balanceByDate: {},
+      absoluteSpendingByDate: {}
     },
     currentMonth: ''
+  }
+
+  componentWillMount() {
+    this.state.currentMonth
+      ? console.log('Month is already set')
+      : this.setState({ currentMonth: new Date().getMonth()}, () => console.log('month being set',this.state));
   }
 
   componentDidMount() {
@@ -34,9 +40,18 @@ class BudgetRoute extends React.Component {
 
       .then(res => {
         console.log('getting res data',res.data);
-        this.state.currentMonth
-          ? this.setState({ user: res.data }, () => console.log('state post setState',this.state))
-          : this.setState({ user: res.data, currentMonth: new Date().getMonth()}, () => console.log('state post setState',this.state));
+        // check whether there is a budget object for the current month
+        if (res.data.budget.find(month => month === this.state.currentMonth)) {
+          this.setState({ user: res.data }, () => console.log('state post   setState',this.state));
+        } else {
+          const editedRes = {...res.data};
+          editedRes.budget.push({
+            currentMonth: this.state.currentMonth,
+            categories: []
+          });
+          this.setState( { user: {...editedRes }});
+        }
+        // if there isn't, create it before passing user in
 
         console.log('finished setting state');
       });
