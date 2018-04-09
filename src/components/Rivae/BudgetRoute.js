@@ -13,7 +13,7 @@ class BudgetRoute extends React.Component {
       transactions: [],
       username: '',
       balance: 0,
-      budget: {},
+      budget: [],
       categories: [],
       totalSpending: 0,
       totalIncome: 0,
@@ -23,7 +23,8 @@ class BudgetRoute extends React.Component {
       incomeByPayee: [],
       balanceByDate: [],
       absoluteSpendingByDate: []
-    }
+    },
+    currentMonth: ''
   }
 
   componentDidMount() {
@@ -31,18 +32,40 @@ class BudgetRoute extends React.Component {
 
       .then(res => {
         console.log('getting res data',res.data);
-        this.setState({ user: res.data }, () => console.log('state post setState',this.state));
+        this.state.currentMonth
+          ? this.setState({ user: res.data }, () => console.log('state post setState',this.state))
+          : this.setState({ user: res.data, currentMonth: new Date().getMonth()}, () => console.log('state post setState',this.state));
+
         console.log('finished setting state');
       });
   }
 
   handleChange = ({ target: { name, value } }) => {
-    // const errors = { ...this.state.errors, [name]: ''};
     const editedUser = {...this.state.user};
-    editedUser.budget[name] = {
-      budgeted: 0
-    };
-    editedUser.budget[name].budgeted = parseInt(value, 10);
+    const currentMonth = editedUser.budget.find(month => month.currentMonth === this.state.currentMonth);
+    console.log('variable currentMonth is', currentMonth);
+    if (!currentMonth) {
+      editedUser.budget.push({
+        currentMonth: this.state.currentMonth,
+        categories: []
+      });
+    }
+    if (!currentMonth.categories.find(category => category.name === name)) {
+      currentMonth.categories.push(
+        {
+          name: name,
+          budgeted: parseInt(value, 10)
+        }
+      );
+    } else {
+      const currentBudget = currentMonth.categories.find(budget => budget.name === name);
+      currentBudget.budgeted = parseInt(value, 10);
+    }
+    //   editedUser.budget.find(month => month.currentMonth === this.state.currentMonth).categories.push({
+    //     name: name,
+    //     budgeted: parseInt(value, 10)
+    //   });
+    // }
     this.setState({ user: {...editedUser}}, () => console.log(this.state));
   }
 

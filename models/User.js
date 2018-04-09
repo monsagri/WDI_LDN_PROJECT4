@@ -28,7 +28,7 @@ const budgetCategories = new mongoose.Schema({
 // also a virtual to calculate the difference between budgeted an spending
 
 const budgetMonthSchema = new mongoose.Schema({
-  month: { type: String },
+  monthStarting: { type: Date },
   categories: [ budgetCategories ]
 });
 

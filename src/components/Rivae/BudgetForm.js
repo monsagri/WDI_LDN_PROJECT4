@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Form = ({ handleSubmit, handleChange, data}) => {
-  console.log(data);
+  console.log('data in BudgetForm is',data);
+  console.log('budget in BudgetForm is',data.user.budget);
+  const currentBudget = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
   return (
 
     <form onSubmit={handleSubmit}>
@@ -29,8 +31,8 @@ const Form = ({ handleSubmit, handleChange, data}) => {
                 <input
                   type="number"
                   name={`${category}`}
-                  value={ data.user.budget[category]
-                    ? data.user.budget[category].budgeted
+                  value={ currentBudget
+                    ? currentBudget.budgeted
                     : 0}
                   onChange={handleChange}
                 />
@@ -44,7 +46,11 @@ const Form = ({ handleSubmit, handleChange, data}) => {
                     ? (data.user.spendingByCategory[category] + data.user.budget[category].budgeted).toFixed(2)
                     // if not, simply display the spending
                     : data.user.spendingByCategory[category].toFixed(2)
-                  : 0}
+                  // if nothing was spent, display either budgeted amount or 0
+                  : data.user.budget[category]
+                    ? data.user.budget[category].budgeted
+                    : 0
+              }
               </td>
             </tr>
           )}
