@@ -29,7 +29,16 @@ function deleteRoute(req, res, next) {
 
 function showBudgetRoute(req,res,next) {
   User.findById(req.params.userId)
-    .then( user => {
+    .then( user => res.json(user))
+    .catch(next);
+}
+
+function editBudgetRoute(req,res,next) {
+  User.findById(req.params.userId)
+    .then(user => {
+      console.log('old budget', user.budget, 'new budget', req.body);
+      user.budget = req.body;
+      user.save();
       res.json(user);
     })
     .catch(next);
@@ -97,5 +106,6 @@ module.exports = {
   getOneTransaction: getOneTransactionRoute,
   editTransaction: editTransactionRoute,
   deleteTransaction: deleteTransactionRoute,
-  showBudget: showBudgetRoute
+  showBudget: showBudgetRoute,
+  editBudget: editBudgetRoute
 };

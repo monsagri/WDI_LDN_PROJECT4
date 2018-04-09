@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import Auth from '../../lib/Auth';
+
 import BudgetForm from './BudgetForm';
 
 class BudgetRoute extends React.Component {
@@ -69,8 +71,16 @@ class BudgetRoute extends React.Component {
     this.setState({ user: {...editedUser}}, () => console.log(this.state));
   }
 
-  handleSubmit = () => {
-
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('budget being sent to backend is',this.state.user.budget);
+    axios({
+      method: 'put',
+      url: `/api/users/${this.props.match.params.id}/budget`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
+      data: this.state.user.budget
+    })
+      .then(() => this.props.history.push(`users/${this.props.match.params.id}/budget`));
   }
 
   render(){

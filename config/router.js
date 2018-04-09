@@ -13,7 +13,8 @@ router.route('/users/:userId')
   .delete(users.delete);
 
 router.route('/users/:userId/budget')
-  .get(users.showBudget);
+  .get(users.showBudget)
+  .put(users.editBudget);
 
 router.route('/users/:userId/transactions')
   .get(users.getAllTransactions);
