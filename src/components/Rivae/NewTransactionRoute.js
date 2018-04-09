@@ -15,10 +15,8 @@ class NewRoute extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    // const errors = Object.assign({}, this.state.errors, { [name]: ''});
     const errors = { ...this.state.errors, [name]: ''};
     this.setState({ [name]: value, errors }, () => console.log(this.state));
-    // this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
