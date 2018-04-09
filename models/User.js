@@ -18,6 +18,36 @@ const transactionSchema = new mongoose.Schema({
 
 });
 
+const budgetCategories = new mongoose.Schema({
+  name: { type: String, required: true },
+  budgeted: { type: Number, default: 0 }
+});
+
+// this schema needs virtuals to calculate the current spending for its categories
+
+// also a virtual to calculate the difference between budgeted an spending
+
+const budgetMonthSchema = new mongoose.Schema({
+  month: { type: String },
+  categories: [ budgetCategories ]
+});
+
+// budgetMonthSchema.pre('save', function(next) {
+//   if(!this.isNew) return next();
+//
+//   this.categories = [
+//     { name: '' },
+//     { name: '' },
+//     { name: '' },
+//     { name: '' },
+//     { name: '' },
+//     { name: '' }
+//   ];
+//   next();
+// });
+
+
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   avatar: { type: String, default: 'https://enbaca.com/web/assets/image-resources/avatar.png'},
@@ -25,8 +55,23 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true }, // needs a pattern!
   password: { type: String, required: true },
   created: { type: Date, default: new Date()},
-  transactions: [ transactionSchema ]
+  transactions: [ transactionSchema ],
+  budget: [ budgetMonthSchema ],
+  categories: []
 
+});
+
+userSchema.pre('save', function(next) {
+  if(!this.isNew) return next();
+
+  this.categories = [
+    'rent',
+    'insurance',
+    'groceries',
+    'eating_out',
+    'drinks'
+  ];
+  next();
 });
 
 userSchema

@@ -27,6 +27,14 @@ function deleteRoute(req, res, next) {
     .catch(next);
 }
 
+function showBudgetRoute(req,res,next) {
+  User.findById(req.params.userId)
+    .then( user => {
+      res.json(user);
+    })
+    .catch(next);
+}
+
 function getAllTransactionsRoute(req, res, next) {
   User.findById(req.params.userId)
     .then(user => res.json(user.transactions))
@@ -88,5 +96,6 @@ module.exports = {
   newTransaction: createTransactionRoute,
   getOneTransaction: getOneTransactionRoute,
   editTransaction: editTransactionRoute,
-  deleteTransaction: deleteTransactionRoute
+  deleteTransaction: deleteTransactionRoute,
+  showBudget: showBudgetRoute
 };

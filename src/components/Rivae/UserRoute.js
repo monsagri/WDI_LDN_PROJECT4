@@ -5,6 +5,7 @@ import { VictoryPie, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 
 
 import PieChartDiv from '../../assets/styledComponents/PieChartDiv';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
+import AvatarFrame from '../../assets/styledComponents/AvatarFrame';
 
 import dataVis from '../../lib/dataVisualization';
 
@@ -48,6 +49,7 @@ class UserRoute extends React.Component{
     // console.log(dataVis.graphData(this.state.user.balanceByDate).reverse());
     return (
       <div className="container">
+        <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
         <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
         <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance}</h3>

@@ -12,6 +12,9 @@ router.route('/users/:userId')
   .post(users.newTransaction)
   .delete(users.delete);
 
+router.route('/users/:userId/budget')
+  .get(users.showBudget);
+
 router.route('/users/:userId/transactions')
   .get(users.getAllTransactions);
 
