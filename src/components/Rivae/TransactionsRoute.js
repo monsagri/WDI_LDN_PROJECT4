@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
 
+import Title from '../../assets/styledComponents/Title';
+import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
+import TransactionNav  from '../../assets/styledComponents/TransactionNav';
+import TransactionTable  from '../../assets/styledComponents/TransactionTable';
+
 class BudgetRoute extends React.Component {
   state = {
     userId: '',
@@ -17,14 +22,11 @@ class BudgetRoute extends React.Component {
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}/transactions`)
       .then(res => {
-        console.log('getting res data',res.data);
         this.setState({ transactions: res.data, userId: `${this.props.match.params.id}` }, () => console.log('state post setState',this.state));
-        console.log('finished setting state');
       });
   }
 
   delete = (id) => {
-    console.log(id);
     axios({
       method: 'delete',
       url: `/api/users/${Auth.getPayload().sub}/transaction/${id}`,
@@ -46,37 +48,35 @@ class BudgetRoute extends React.Component {
   render(){
     return (
       <div className="container">
-        <h2 className="title is-2">Your Transactions</h2>
+        <Title>Your Transactions</Title>
         <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
-        <div className="transactionsNav">
-          <div>
+        <TransactionNav>
+          <FlexRowDiv>
             <button
               className="button"
               onClick={() => this.incrementMonth(-1)}>Previous Month</button>
             <button
               className="button"
               onClick={() => this.incrementYear(-1)}>Previous Year</button>
-          </div>
-          <div>
-            <button
-              className="button"
-              onClick={() => this.incrementMonth(1)}>Next Month</button>
+          </FlexRowDiv>
+          <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
+          <FlexRowDiv>
             <button
               className="button"
               onClick={() => this.incrementYear(1)}>Next Year</button>
-          </div>
-        </div>
-        <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
+            <button
+              className="button"
+              onClick={() => this.incrementMonth(1)}>Next Month</button>
+          </FlexRowDiv>
+        </TransactionNav>
         {this.state.transactions[this.state.year] !== undefined && this.state.transactions[this.state.year][this.state.month] !== undefined
-          ?<table>
+          ?<TransactionTable>
             <thead>
               <tr>
                 <th>Date</th>
                 <th>Amount</th>
                 <th>Category</th>
                 <th>Description</th>
-                <th>Edit</th>
-                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -87,11 +87,11 @@ class BudgetRoute extends React.Component {
                   <td>{transaction.amount}</td>
                   <td>{transaction.category}</td>
                   <td>{transaction.description}</td>
-                  <td><Link className="button" to={`/users/${this.props.match.params.id}/transaction/${transaction._id}/edit`}>Edit</Link></td>
-                  <td><button className="button" onClick={() => this.delete(transaction._id)}>X</button></td>
+                  <td><Link className="button" to={`/users/${this.props.match.params.id}/transaction/${transaction._id}/edit`}><i className="fas fa-edit"></i></Link></td>
+                  <td><button className="button" onClick={() => this.delete(transaction._id)}><i className="fas fa-trash"></i></button></td>
                 </tr>)}
             </tbody>
-          </table>
+          </TransactionTable>
           :<h2 className="subtitle is-2 has-text-centered">No Transactions recorded this Month</h2>}
       </div>
     );

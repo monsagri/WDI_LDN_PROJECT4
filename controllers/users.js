@@ -105,7 +105,7 @@ function editTransactionRoute(req, res, next) {
       transaction.remove();
       user.transactions.push(editedTransaction);
       user.save();
-      res.json(editedTransaction);
+      res.json(user.transactionsByMonth);
     })
     .catch(next);
 }
@@ -118,7 +118,7 @@ function deleteTransactionRoute(req, res, next) {
       console.log('transaction found is', transaction);
       transaction.remove();
       user.save();
-      res.json(user.transactions);
+      res.json(user.transactionsByMonth);
     })
     .catch(next);
 }
