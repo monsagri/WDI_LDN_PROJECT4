@@ -19,6 +19,12 @@ const transactionSchema = new mongoose.Schema({
 });
 
 transactionSchema
+  .virtual('date_Object')
+  .get(function createDate() {
+    return new Date(this.date);
+  });
+
+transactionSchema
   .virtual('month')
   .get(function findMonth() {
     return new Date(this.date)
@@ -221,8 +227,21 @@ userSchema
         .map(transaction => transaction.amount)
         .reduce((sum, amount) => sum + amount, 0);
     });
+    // Creating a new object with keys sorted by date
+    const orderedDatesObject = {};
+    Object.keys(datesObject)
+    // Sorting through all the dates
+      .sort(function compare(a, b) {
+        const dateA = new Date(a);
+        const dateB = new Date(b);
+        return dateA - dateB;
+      })
+      // retrieving the values from the non-sorted object and storing them in the sroted object
+      .forEach(function(key) {
+        orderedDatesObject[key] = datesObject[key];
+      });
 
-    return datesObject ;
+    return orderedDatesObject ;
   });
 
 userSchema
@@ -248,10 +267,9 @@ userSchema
           .filter(transaction => transaction.month === parseInt(month, 10))
           .forEach(filteredTransaction => spendingObject[year][month].push(filteredTransaction))
       );
-
-
-    }
-    );
+      // sort the transactions by Date
+      activeMonths.forEach(month => spendingObject[year][month] = _.sortBy(spendingObject[year][month], 'date_Object'));
+    });
 
     return spendingObject;
   });

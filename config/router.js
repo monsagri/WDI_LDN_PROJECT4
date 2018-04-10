@@ -9,7 +9,6 @@ router.route('/users')
 router.route('/users/:userId')
   .get(users.show)
   .put(users.update)
-  .post(users.newTransaction)
   .delete(users.delete);
 
 router.route('/users/:userId/budget')
@@ -19,7 +18,8 @@ router.route('/users/:userId/budget')
   .delete(users.removeBudgetCategory);
 
 router.route('/users/:userId/transactions')
-  .get(users.getAllTransactions);
+  .get(users.getAllTransactions)
+  .post(users.newTransaction);
 
 
 router.route('/users/:userId/transaction/:transactionId')

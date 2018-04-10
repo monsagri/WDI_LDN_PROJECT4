@@ -9,6 +9,8 @@ import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
 import TransactionTable  from '../../assets/styledComponents/TransactionTable';
 
+import TransactionFormTable from './TransactionFormTable';
+
 class BudgetRoute extends React.Component {
   state = {
     userId: '',
@@ -17,7 +19,15 @@ class BudgetRoute extends React.Component {
     },
     year: (new Date()).getFullYear(),
     month: (new Date()).getMonth(),
-    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    newTransaction: {
+      date: '',
+      amount: 0,
+      category: '',
+      description: '',
+      errors: {}
+    },
+    newTransactionToggle: false
   }
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}/transactions`)
@@ -41,9 +51,41 @@ class BudgetRoute extends React.Component {
     return this.setState({ month: this.state.month + increment }, () => console.log(this.state.month));
   }
 
-
   incrementYear = (increment) => this.setState({ year: this.state.year + increment }, () => console.log(this.state.year))
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.newTransaction);
+    axios({
+      method: 'post',
+      url: `/api/users/${Auth.getPayload().sub}/transactions`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
+      data: this.state.newTransaction
+    })
+      .then(res => {
+        this.setState({ transactions: res.data });
+        this.toggleNewTransaction();
+      })
+      .catch(err => this.setState( {errors: err.response.data.errors}));
+  }
+
+  handleChange = ({ target: { name, value } }) => {
+    console.log(name, value);
+    const errors = { ...this.state.errors, [name]: ''};
+    const editedTransaction = {...this.state.newTransaction};
+    editedTransaction[name] = value;
+    this.setState({ newTransaction: editedTransaction, errors }, () => console.log(this.state));
+  }
+
+  toggleNewTransaction = () => {
+    this.setState( { newTransactionToggle: !this.state.newTransactionToggle, newTransaction: {
+      date: '',
+      amount: 0,
+      category: '',
+      description: '',
+      errors: {}
+    }}, () => console.log(this.state));
+  }
 
   render(){
     return (
@@ -59,7 +101,10 @@ class BudgetRoute extends React.Component {
               className="button"
               onClick={() => this.incrementYear(-1)}>Previous Year</button>
           </FlexRowDiv>
-          <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
+          {/* <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link> */}
+          <button
+            className="button"
+            onClick={this.toggleNewTransaction}>New Transaction</button>
           <FlexRowDiv>
             <button
               className="button"
@@ -69,6 +114,15 @@ class BudgetRoute extends React.Component {
               onClick={() => this.incrementMonth(1)}>Next Month</button>
           </FlexRowDiv>
         </TransactionNav>
+
+        <TransactionFormTable
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          data={this.state.newTransaction}
+          display={this.state.newTransactionToggle}
+          toggle={this.toggleNewTransaction}
+        />
+
         {this.state.transactions[this.state.year] !== undefined && this.state.transactions[this.state.year][this.state.month] !== undefined
           ?<TransactionTable>
             <thead>
