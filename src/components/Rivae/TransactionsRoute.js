@@ -7,9 +7,10 @@ import Auth from '../../lib/Auth';
 import Title from '../../assets/styledComponents/Title';
 import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
-import TransactionTable  from '../../assets/styledComponents/TransactionTable';
+import BasicTable  from '../../assets/styledComponents/BasicTable';
 
 import TransactionFormTable from './TransactionFormTable';
+import DeleteButton from '../fragments/DeleteButton';
 
 class BudgetRoute extends React.Component {
   state = {
@@ -97,18 +98,18 @@ class BudgetRoute extends React.Component {
             <button
               className="button"
               onClick={() => this.incrementMonth(-1)}>Previous Month</button>
-            <button
+            {/* <button
               className="button"
-              onClick={() => this.incrementYear(-1)}>Previous Year</button>
+              onClick={() => this.incrementYear(-1)}>Previous Year</button> */}
           </FlexRowDiv>
           {/* <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link> */}
           <button
             className="button"
             onClick={this.toggleNewTransaction}>New Transaction</button>
           <FlexRowDiv>
-            <button
+            {/* <button
               className="button"
-              onClick={() => this.incrementYear(1)}>Next Year</button>
+              onClick={() => this.incrementYear(1)}>Next Year</button> */}
             <button
               className="button"
               onClick={() => this.incrementMonth(1)}>Next Month</button>
@@ -124,7 +125,7 @@ class BudgetRoute extends React.Component {
         />
 
         {this.state.transactions[this.state.year] !== undefined && this.state.transactions[this.state.year][this.state.month] !== undefined
-          ?<TransactionTable>
+          ?<BasicTable>
             <thead>
               <tr>
                 <th>Date</th>
@@ -142,10 +143,16 @@ class BudgetRoute extends React.Component {
                   <td>{transaction.category}</td>
                   <td>{transaction.description}</td>
                   <td><Link className="button" to={`/users/${this.props.match.params.id}/transaction/${transaction._id}/edit`}><i className="fas fa-edit"></i></Link></td>
-                  <td><button className="button" onClick={() => this.delete(transaction._id)}><i className="fas fa-trash"></i></button></td>
+                  <td>
+                    <DeleteButton
+                      className="button"
+                      type="button"
+                      onClick={() => this.delete(transaction._id)}
+                    />
+                  </td>
                 </tr>)}
             </tbody>
-          </TransactionTable>
+          </BasicTable>
           :<h2 className="subtitle is-2 has-text-centered">No Transactions recorded this Month</h2>}
       </div>
     );

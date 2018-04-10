@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TransactionTable = styled.table`
+const BasicTable = styled.table`
   width: 80%;
   margin: 0 auto;
   th {
@@ -16,4 +16,4 @@ const TransactionTable = styled.table`
   }
 `;
 
-export default TransactionTable;
+export default BasicTable;

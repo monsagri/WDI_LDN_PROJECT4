@@ -1,5 +1,9 @@
 import React from 'react';
 
+import BasicTable from '../../assets/styledComponents/BasicTable';
+
+import DeleteButton from '../fragments/DeleteButton';
+
 const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, newCategoryChange, newCategorySave, data}) => {
   console.log('data in BudgetForm is',data);
   const currentMonth = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
@@ -7,7 +11,7 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, 
   return (
 
     <form onSubmit={handleSubmit}>
-      <table>
+      <BasicTable>
         <thead>
           <tr>
             <th>Category</th>
@@ -56,16 +60,15 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, 
               }
               </td>
               <td>
-                <button
+                <DeleteButton
+                  className="button"
                   onClick={() => removeBudgetCategory(category)}
-                  type="button">
-                X
-                </button>
+                  type="button" />
               </td>
             </tr>
           )}
         </tbody>
-      </table>
+      </BasicTable>
       {data.newCategory &&
       <div>
         <input

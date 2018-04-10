@@ -1,10 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { VictoryPie, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 
 import PieChartDiv from '../../assets/styledComponents/PieChartDiv';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
+import UserInfo from '../../assets/styledComponents/UserInfo';
 import AvatarFrame from '../../assets/styledComponents/AvatarFrame';
 
 import dataVis from '../../lib/dataVisualization';
@@ -49,9 +50,10 @@ class UserRoute extends React.Component{
     // console.log(dataVis.graphData(this.state.user.balanceByDate).reverse());
     return (
       <div className="container">
-        <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
-        <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
-        <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link>
+        <UserInfo className="userInfo">
+          <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
+          <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
+        </UserInfo>
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance.toFixed(2)}</h3>
 
         {/* Balance Graph */}

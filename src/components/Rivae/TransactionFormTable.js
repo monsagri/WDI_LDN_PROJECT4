@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TransactionTable from '../../assets/styledComponents/TransactionTable';
+import BasicTable from '../../assets/styledComponents/BasicTable';
 
 const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
   console.log(data);
@@ -8,7 +8,7 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
   return (
 
     <form onSubmit={handleSubmit}>
-      <TransactionTable>
+      <BasicTable>
         <tbody>
           <tr>
             <td>
@@ -61,7 +61,7 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
             </td>
           </tr>
         </tbody>
-      </TransactionTable>
+      </BasicTable>
     </form>
   );
 
