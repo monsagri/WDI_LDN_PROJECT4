@@ -21,6 +21,9 @@ router.route('/users/:userId/transactions')
   .get(users.getAllTransactions)
   .post(users.newTransaction);
 
+router.route('/users/:userId/transactions/bulk')
+  .post(users.csvUpload);
+
 
 router.route('/users/:userId/transaction/:transactionId')
   .get(users.getOneTransaction)

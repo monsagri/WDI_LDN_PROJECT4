@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const parseCsv = require('../lib/parseCsv');
 
 function showAllRoute(req, res, next) {
   User.find()
@@ -123,6 +124,19 @@ function deleteTransactionRoute(req, res, next) {
     .catch(next);
 }
 
+function csvUploadRoute(req, res, next) {
+  console.log(req);
+  // include switch for different bank types at some point
+  User.findById(req.params.userId)
+    .then(user => {
+      user.transactions.push(parseCsv.monzo(req.body));
+      user.save();
+      console.log(user.transactions);
+      res.json(user.transactions);
+    })
+    .catch(next);
+
+}
 
 module.exports = {
   showAll: showAllRoute,
@@ -137,5 +151,6 @@ module.exports = {
   showBudget: showBudgetRoute,
   editBudget: editBudgetRoute,
   addBudgetCategory: addBudgetCategoryRoute,
-  removeBudgetCategory: deleteBudgetCategoryRoute
+  removeBudgetCategory: deleteBudgetCategoryRoute,
+  csvUpload: csvUploadRoute
 };
