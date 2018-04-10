@@ -68,11 +68,12 @@ userSchema.pre('save', function(next) {
   if(!this.isNew) return next();
 
   this.categories = [
+    'insurance',
     'cash',
-    'eating_out',
+    'eating out',
     'entertainment',
-    'expenses',
-    'general',
+    'fixed costs',
+    'household purchases',
     'groceries',
     'shopping',
     'transport',
@@ -80,6 +81,14 @@ userSchema.pre('save', function(next) {
   ];
   next();
 });
+
+userSchema
+  .virtual('sortedCategories')
+  .get(function sorting() {
+    const sortedCategories = _.sortBy(this.categories);
+
+    return sortedCategories;
+  });
 
 userSchema
   .virtual('balance')
@@ -237,9 +246,7 @@ userSchema
         return dateA - dateB;
       })
       // retrieving the values from the non-sorted object and storing them in the sroted object
-      .forEach(function(key) {
-        orderedDatesObject[key] = datesObject[key];
-      });
+      .forEach(key => orderedDatesObject[key] = datesObject[key]);
 
     return orderedDatesObject ;
   });

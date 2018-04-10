@@ -22,7 +22,7 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, 
           </tr>
         </thead>
         <tbody>
-          {data.user.categories.map((category, i) =>
+          {data.user.sortedCategories.map((category, i) =>
             <tr key={i}>
               <td>{category}</td>
               <td>

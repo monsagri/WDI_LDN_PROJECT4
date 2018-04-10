@@ -1,6 +1,7 @@
 import React from 'react';
 // import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { VictoryPie, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 
 import PieChartDiv from '../../assets/styledComponents/PieChartDiv';
@@ -27,7 +28,8 @@ class UserRoute extends React.Component{
       spendingByPayee: [],
       incomeByPayee: [],
       balanceByDate: [],
-      absoluteSpendingByDate: []
+      absoluteSpendingByDate: [],
+      transactionsByDate: {}
     }
   }
 
@@ -54,6 +56,8 @@ class UserRoute extends React.Component{
           <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
           <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
         </UserInfo>
+        {this.state.user.transactions.length === 0 &&
+        <Link to={`/users/${this.props.match.params.id}/transactions`} className="title is-2 has-text-centered">You have no transactions on file yet. Lets add some!</Link>}
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance.toFixed(2)}</h3>
 
         {/* Balance Graph */}

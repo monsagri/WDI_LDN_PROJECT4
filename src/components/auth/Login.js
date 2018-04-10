@@ -15,7 +15,7 @@ class Register extends React.Component {
     axios.post('/api/login', this.state)
       .then(res => Auth.setToken(res.data.token))
       .then(() => Flash.setMessage('success', 'Welcome Back'))
-      .then(() => this.props.history.push('/'));
+      .then(() => this.props.history.push(`/users/${Auth.getPayload.sub}`));
   }
 
   handleChange = ({ target: { name, value } }) => {

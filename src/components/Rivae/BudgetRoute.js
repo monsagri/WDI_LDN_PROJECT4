@@ -17,6 +17,7 @@ class BudgetRoute extends React.Component {
       balance: 0,
       budget: [],
       categories: [],
+      sortedCategories: [],
       totalSpending: 0,
       totalIncome: 0,
       spendingByCategory: {},
