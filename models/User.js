@@ -123,8 +123,7 @@ userSchema
 userSchema
   .virtual('spendingByCategory')
   .get(function findCategorySpending() {
-    // Creating Object to hold spending data
-    // initial value is required for victory charts
+    // Creating Object to hold spending data - initial value is required for victory charts
     const categoriesObject = {initial: 0};
     this.uniqueCategories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
@@ -141,8 +140,7 @@ userSchema
 userSchema
   .virtual('incomeByCategory')
   .get(function findCategoryIncome() {
-    // Creating Object to hold spending data
-    // initial value is required for victory charts
+    // Creating Object to hold spending data - initial value is required for victory charts
     const categoriesObject = {initial: 0};
     this.uniqueCategories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
@@ -161,7 +159,7 @@ userSchema
 userSchema
   .virtual('spendingByPayee')
   .get(function findPayeeSpending() {
-    // initial value is required for Victory Charts
+    // Creating Object to hold Data - initial value is required for Victory Charts
     const payeesObject = {initial: 0};
     this.uniquePayees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
@@ -178,7 +176,7 @@ userSchema
 userSchema
   .virtual('incomeByPayee')
   .get(function findPayeeIncome() {
-    // initial value is required for Victory Charts
+    // creating Object to hold data - initial value is required for Victory Charts
     const payeesObject = {initial: 0};
     this.uniquePayees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
@@ -195,8 +193,7 @@ userSchema
 userSchema
   .virtual('absoluteSpendingByDate')
   .get(function findabsoluteSpendingByDate() {
-    // Creating Object to hold spending data
-    // initial value is required for Victory Charts
+    // Creating Object to hold spending data - initial value is required for Victory Charts
     const datesObject = {initial: 0};
     this.uniqueDates.forEach(date => datesObject[date] = 0);
     // Filling Object with data
@@ -214,8 +211,7 @@ userSchema
 userSchema
   .virtual('balanceByDate')
   .get(function findbalanceByDate() {
-    // Creating Object to hold spending data
-    // initial value is required for Victory Charts
+    // Creating Object to hold spending data - initial value is required for Victory Charts
     const datesObject = {initial: 0};
     // Filling Object with data
     this.uniqueDates.forEach(date => {
@@ -232,19 +228,33 @@ userSchema
 userSchema
   .virtual('transactionsByMonth')
   .get(function findTransactionsByMonth() {
-    // get all months from transaction data
-    const allMonths = _.uniq(this.transactions.map(transaction => transaction.month));
-    const monthObject = {};
-    allMonths.forEach(month => monthObject[month] = 0);
-    // get all years from transaction data
     const allYears = _.uniq(this.transactions.map(transaction => transaction.year));
     // create Object with primary Key Years, secondary Keys months
     const spendingObject = {};
     allYears.forEach(year => spendingObject[year] = 0);
-    Object.keys(spendingObject).forEach(year => spendingObject[year] = monthObject);
-    return spendingObject;
+    // Object.keys(spendingObject).forEach(year => spendingObject[year] = monthObject);
     // Fill Object by running through all transactions
+    // Find Transactions per Year
+    Object.keys(spendingObject).forEach(year =>{
+      const yearlyTransactions = this.transactions.filter(transaction => transaction.year === parseInt(year, 10));
+      // find months with spending data
+      const activeMonths = _.uniq(yearlyTransactions.map(transaction => transaction.month));
+      // create objects for them
+      const monthObject = {};
+      activeMonths.forEach(month => monthObject[month] =[]);
+      spendingObject[year] = monthObject;
+      // Insert spending by Month
+      activeMonths.forEach(month =>
+        yearlyTransactions
+          .filter(transaction => transaction.month === parseInt(month, 10))
+          .forEach(filteredTransaction => spendingObject[year][month].push(filteredTransaction))
+      );
 
+
+    }
+    );
+
+    return spendingObject;
   });
 
 // Add the virtual for passwordConfirmation
