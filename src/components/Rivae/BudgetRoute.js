@@ -24,7 +24,8 @@ class BudgetRoute extends React.Component {
       spendingByPayee: {},
       incomeByPayee: {},
       balanceByDate: {},
-      absoluteSpendingByDate: {}
+      absoluteSpendingByDate: {},
+      transactionsByMonth: {}
     },
     currentMonth: ''
   }

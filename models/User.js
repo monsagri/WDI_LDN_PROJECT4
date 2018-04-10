@@ -232,7 +232,6 @@ userSchema
     // create Object with primary Key Years, secondary Keys months
     const spendingObject = {};
     allYears.forEach(year => spendingObject[year] = 0);
-    // Object.keys(spendingObject).forEach(year => spendingObject[year] = monthObject);
     // Fill Object by running through all transactions
     // Find Transactions per Year
     Object.keys(spendingObject).forEach(year =>{

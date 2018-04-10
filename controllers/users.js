@@ -69,7 +69,7 @@ function deleteBudgetCategoryRoute(req,res,next) {
 
 function getAllTransactionsRoute(req, res, next) {
   User.findById(req.params.userId)
-    .then(user => res.json(user.transactions))
+    .then(user => res.json(user.transactionsByMonth))
     .catch(next);
 }
 
