@@ -107,38 +107,46 @@ userSchema
     return _.uniq(this.transactions.map(transaction => transaction.category));
   });
 
+// This isn't ideal, Monzo only has a description field, not a Payee field
+userSchema
+  .virtual('uniquePayees')
+  .get(function findPayees() {
+    return _.uniq(this.transactions.map(transaction => transaction.description));
+  });
+
+userSchema
+  .virtual('uniqueDates')
+  .get(function findPayees() {
+    return _.uniq(this.transactions.map(transaction => transaction.date));
+  });
+
 userSchema
   .virtual('spendingByCategory')
   .get(function findCategorySpending() {
-    // uniqueCategories
-    const categories = _.uniq(this.transactions.map(transaction => transaction.category));
     // Creating Object to hold spending data
     // initial value is required for victory charts
     const categoriesObject = {initial: 0};
-    categories.forEach(category => categoriesObject[category] = 0);
+    this.uniqueCategories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
-    categories.forEach(category => {
+    this.uniqueCategories.forEach(category => {
       // Fill each Category individually, find spending, sum it and add as value
       categoriesObject[category] = this.transactions
         .filter(transaction => transaction.category === category && transaction.amount < 0)
         .map(transaction => transaction.amount)
         .reduce((sum, amount) => sum + amount, 0);
     });
-
     return categoriesObject ;
   });
 
 userSchema
   .virtual('incomeByCategory')
   .get(function findCategoryIncome() {
-    // uniqueCategories
-    const categories = _.uniq(this.transactions.map(transaction => transaction.category));
     // Creating Object to hold spending data
     // initial value is required for victory charts
     const categoriesObject = {initial: 0};
-    categories.forEach(category => categoriesObject[category] = 0);
+    this.uniqueCategories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
-    categories.forEach(category => {
+    this.uniqueCategories.forEach(category => {
       // Fill each Category individually, find spending, sum it and add as value
       categoriesObject[category] = this.transactions
         .filter(transaction => transaction.category === category && transaction.amount > 0)
@@ -149,22 +157,15 @@ userSchema
     return categoriesObject ;
   });
 
-// This isn't ideal, Monzo only has a description field, not a Payee field
-userSchema
-  .virtual('uniquePayees')
-  .get(function findPayees() {
-    return _.uniq(this.transactions.map(transaction => transaction.description));
-  });
 
 userSchema
   .virtual('spendingByPayee')
   .get(function findPayeeSpending() {
-    const payees = _.uniq(this.transactions.map(transaction => transaction.description));
     // initial value is required for Victory Charts
     const payeesObject = {initial: 0};
-    payees.forEach(payee => payeesObject[payee] = 0);
+    this.uniquePayees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
-    payees.forEach(payee => {
+    this.uniquePayees.forEach(payee => {
       // Fill each Payee individually, find spending, sum it and add as value
       payeesObject[payee] = this.transactions
         .filter(transaction => transaction.description === payee && transaction.amount < 0)
@@ -177,13 +178,11 @@ userSchema
 userSchema
   .virtual('incomeByPayee')
   .get(function findPayeeIncome() {
-    // unique Payees
-    const payees = _.uniq(this.transactions.map(transaction => transaction.description));
     // initial value is required for Victory Charts
     const payeesObject = {initial: 0};
-    payees.forEach(payee => payeesObject[payee] = 0);
+    this.uniquePayees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
-    payees.forEach(payee => {
+    this.uniquePayees.forEach(payee => {
       // Fill each Payee individually, find spending, sum it and add as value
       payeesObject[payee] = this.transactions
         .filter(transaction => transaction.description === payee && transaction.amount > 0)
@@ -196,14 +195,12 @@ userSchema
 userSchema
   .virtual('absoluteSpendingByDate')
   .get(function findabsoluteSpendingByDate() {
-    // unique dates
-    const dates = _.uniq(this.transactions.map(transaction => transaction.date));
     // Creating Object to hold spending data
     // initial value is required for Victory Charts
     const datesObject = {initial: 0};
-    dates.forEach(date => datesObject[date] = 0);
+    this.uniqueDates.forEach(date => datesObject[date] = 0);
     // Filling Object with data
-    dates.forEach(date => {
+    this.uniqueDates.forEach(date => {
       // Fill each Category individually, find spending, sum it and add as value
       datesObject[date] = this.transactions
         .filter(transaction => transaction.date === date)
@@ -217,19 +214,11 @@ userSchema
 userSchema
   .virtual('balanceByDate')
   .get(function findbalanceByDate() {
-    // unique dates
-    let dates = [];
-    this.transactions
-      .map(transaction => transaction.date)
-      .reduce((unique, date) => {
-        if (!unique.includes(date)) unique.push(date);
-        return dates = unique;
-      } ,[]);
     // Creating Object to hold spending data
     // initial value is required for Victory Charts
     const datesObject = {initial: 0};
     // Filling Object with data
-    dates.forEach(date => {
+    this.uniqueDates.forEach(date => {
       // Fill each Category individually, find spending, sum it and add as value
       datesObject[new Date(date)] = this.transactions
         .filter(transaction => transaction.date <= date)
