@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import Flash from '../../lib/Flash';
+
 class Register extends React.Component {
 
   state = {
@@ -12,6 +14,7 @@ class Register extends React.Component {
     axios.post('/api/register', this.state)
       .then(res => {
         console.log(res);
+        Flash.setMessage('success', 'Thank you for registering. Please log in now');
       })
       .then(() => this.props.history.push('/'));
   }

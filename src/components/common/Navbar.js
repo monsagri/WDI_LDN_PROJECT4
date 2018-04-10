@@ -2,7 +2,7 @@ import React from 'react';
 import { Link , withRouter} from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
-
+import Flash from '../../lib/Flash';
 
 class Navbar extends React.Component {
 
@@ -23,6 +23,7 @@ class Navbar extends React.Component {
 
   logout = () => {
     localStorage.removeItem('token');
+    Flash.setMessage('success', 'Thank you for your patronage. See you again soon.');
     this.setState({toggle: !this.state.toggle});
   }
 

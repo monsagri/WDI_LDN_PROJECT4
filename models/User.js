@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const _ = require('lodash');
 
 const transactionSchema = new mongoose.Schema({
   id: { type: String },
-  created: { type: Date },
+  created: { type: Date, default: new Date() },
   amount: { type: Number, required: true },
   date: { type: String },
   currency: { type: String },
@@ -15,8 +16,23 @@ const transactionSchema = new mongoose.Schema({
   address: { type: String },
   notes: { type: String },
   receipt: { type: String }
-
 });
+
+transactionSchema
+  .virtual('month')
+  .get(function findMonth() {
+    return new Date(this.date)
+      .getMonth();
+  });
+
+transactionSchema
+  .virtual('year')
+  .get(function findYear() {
+    return new Date(this.date)
+      .getFullYear();
+  });
+
+transactionSchema.set('toJSON', { virtuals: true });
 
 const budgetCategories = new mongoose.Schema({
   name: { type: String, required: true },
@@ -28,8 +44,6 @@ const budgetMonthSchema = new mongoose.Schema({
   currentMonth: { type: Number },
   categories: [ budgetCategories ]
 });
-
-
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -90,28 +104,16 @@ userSchema
 userSchema
   .virtual('uniqueCategories')
   .get(function findCategories() {
-    let categories = [];
-    this.transactions
-      .map(transaction => transaction.category)
-      .reduce((unique, category) => {
-        if (!unique.includes(category)) unique.push(category);
-        return categories = unique;
-      } ,[]);
-    return categories;
+    return _.uniq(this.transactions.map(transaction => transaction.category));
   });
 
 userSchema
   .virtual('spendingByCategory')
   .get(function findCategorySpending() {
     // uniqueCategories
-    let categories = [];
-    this.transactions
-      .map(transaction => transaction.category)
-      .reduce((unique, category) => {
-        if (!unique.includes(category)) unique.push(category);
-        return categories = unique;
-      } ,[]);
+    const categories = _.uniq(this.transactions.map(transaction => transaction.category));
     // Creating Object to hold spending data
+    // initial value is required for victory charts
     const categoriesObject = {initial: 0};
     categories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
@@ -130,14 +132,9 @@ userSchema
   .virtual('incomeByCategory')
   .get(function findCategoryIncome() {
     // uniqueCategories
-    let categories = [];
-    this.transactions
-      .map(transaction => transaction.category)
-      .reduce((unique, category) => {
-        if (!unique.includes(category)) unique.push(category);
-        return categories = unique;
-      } ,[]);
+    const categories = _.uniq(this.transactions.map(transaction => transaction.category));
     // Creating Object to hold spending data
+    // initial value is required for victory charts
     const categoriesObject = {initial: 0};
     categories.forEach(category => categoriesObject[category] = 0);
     // Filling Object with data
@@ -156,26 +153,14 @@ userSchema
 userSchema
   .virtual('uniquePayees')
   .get(function findPayees() {
-    let payees = [];
-    this.transactions
-      .map(transaction => transaction.description)
-      .reduce((unique, description) => {
-        if (!unique.includes(description)) unique.push(description);
-        return payees = unique;
-      } ,[]);
-    return payees;
+    return _.uniq(this.transactions.map(transaction => transaction.description));
   });
 
 userSchema
   .virtual('spendingByPayee')
   .get(function findPayeeSpending() {
-    let payees = [];
-    this.transactions
-      .map(transaction => transaction.description)
-      .reduce((unique, description) => {
-        if (!unique.includes(description)) unique.push(description);
-        return payees = unique;
-      } ,[]);
+    const payees = _.uniq(this.transactions.map(transaction => transaction.description));
+    // initial value is required for Victory Charts
     const payeesObject = {initial: 0};
     payees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
@@ -192,13 +177,9 @@ userSchema
 userSchema
   .virtual('incomeByPayee')
   .get(function findPayeeIncome() {
-    let payees = [];
-    this.transactions
-      .map(transaction => transaction.description)
-      .reduce((unique, description) => {
-        if (!unique.includes(description)) unique.push(description);
-        return payees = unique;
-      } ,[]);
+    // unique Payees
+    const payees = _.uniq(this.transactions.map(transaction => transaction.description));
+    // initial value is required for Victory Charts
     const payeesObject = {initial: 0};
     payees.forEach(payee => payeesObject[payee] = 0);
     // Filling Object with data
@@ -216,14 +197,9 @@ userSchema
   .virtual('absoluteSpendingByDate')
   .get(function findabsoluteSpendingByDate() {
     // unique dates
-    let dates = [];
-    this.transactions
-      .map(transaction => transaction.date)
-      .reduce((unique, date) => {
-        if (!unique.includes(date)) unique.push(date);
-        return dates = unique;
-      } ,[]);
+    const dates = _.uniq(this.transactions.map(transaction => transaction.date));
     // Creating Object to hold spending data
+    // initial value is required for Victory Charts
     const datesObject = {initial: 0};
     dates.forEach(date => datesObject[date] = 0);
     // Filling Object with data
@@ -250,6 +226,7 @@ userSchema
         return dates = unique;
       } ,[]);
     // Creating Object to hold spending data
+    // initial value is required for Victory Charts
     const datesObject = {initial: 0};
     // Filling Object with data
     dates.forEach(date => {
@@ -261,6 +238,24 @@ userSchema
     });
 
     return datesObject ;
+  });
+
+userSchema
+  .virtual('transactionsByMonth')
+  .get(function findTransactionsByMonth() {
+    // get all months from transaction data
+    const allMonths = _.uniq(this.transactions.map(transaction => transaction.month));
+    const monthObject = {};
+    allMonths.forEach(month => monthObject[month] = 0);
+    // get all years from transaction data
+    const allYears = _.uniq(this.transactions.map(transaction => transaction.year));
+    // create Object with primary Key Years, secondary Keys months
+    const spendingObject = {};
+    allYears.forEach(year => spendingObject[year] = 0);
+    Object.keys(spendingObject).forEach(year => spendingObject[year] = monthObject);
+    return spendingObject;
+    // Fill Object by running through all transactions
+
   });
 
 // Add the virtual for passwordConfirmation

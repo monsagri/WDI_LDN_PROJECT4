@@ -11,13 +11,13 @@ class BudgetRoute extends React.Component {
   }
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}/transactions`)
-
       .then(res => {
         console.log('getting res data',res.data);
         this.setState({ transactions: res.data, userId: `${this.props.match.params.id}` }, () => console.log('state post setState',this.state));
         console.log('finished setting state');
       });
   }
+
   delete= (id) => {
     console.log(id);
     axios({
