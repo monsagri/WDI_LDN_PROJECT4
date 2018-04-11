@@ -125,17 +125,20 @@ function deleteTransactionRoute(req, res, next) {
 }
 
 function csvUploadRoute(req, res, next) {
-  console.log(req);
   // include switch for different bank types at some point
-  User.findById(req.params.userId)
-    .then(user => {
-      user.transactions.push(parseCsv.monzo(req.body));
-      user.save();
-      console.log(user.transactions);
-      res.json(user.transactions);
-    })
-    .catch(next);
-
+  let parsedCSV = [];
+  parsedCSV = parseCsv.monzoString(req.body.data.csv);
+  setTimeout(() => {
+    User.findById(req.params.userId)
+      .then(user => {
+        // user.transactions.concat(parsedCSV);
+        parsedCSV.forEach(transaction => user.transactions.push(transaction));
+        console.log(user.transactions);
+        user.save();
+        res.json(user.transactions);
+      })
+      .catch(next);
+  }, 2000);
 }
 
 module.exports = {

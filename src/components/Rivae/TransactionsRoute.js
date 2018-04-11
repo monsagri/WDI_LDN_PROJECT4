@@ -12,6 +12,10 @@ import BasicTable  from '../../assets/styledComponents/BasicTable';
 import TransactionFormTable from './TransactionFormTable';
 import DeleteButton from '../fragments/DeleteButton';
 
+import CSVReader from '../common/CSVReader';
+
+// import filestackAPI from 'process.env.FILESTACK';
+
 class BudgetRoute extends React.Component {
   state = {
     userId: '',
@@ -28,8 +32,10 @@ class BudgetRoute extends React.Component {
       description: '',
       errors: {}
     },
-    newTransactionToggle: false
+    newTransactionToggle: false,
+    text: ''
   }
+
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}/transactions`)
       .then(res => {
@@ -51,8 +57,6 @@ class BudgetRoute extends React.Component {
     if (this.state.month + increment > 11) return this.setState({ month: 0 , year: this.state.year + 1}, () => console.log(this.state.month, this.state.year));
     return this.setState({ month: this.state.month + increment }, () => console.log(this.state.month));
   }
-
-  incrementYear = (increment) => this.setState({ year: this.state.year + increment }, () => console.log(this.state.year))
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +92,24 @@ class BudgetRoute extends React.Component {
     }}, () => console.log(this.state));
   }
 
+  handleCSVChange = text => {
+    // sets state to the text the user has uploaded
+    this.setState({ text }, () => console.log(this.state));
+  }
+
+  passCSV = () => {
+    const csv = this.state.text;
+    axios({
+      method: 'post',
+      url: `/api/users/${Auth.getPayload().sub}/transactions/bulk`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
+      data: { data: {csv} }
+    })
+      .then(res => this.setState({text: '', transactions: res.data}, () => console.log('uploaded', this.state)));
+  }
+
   render(){
+    // console.log('api key is ', filestackAPI);
     return (
       <div className="container">
         <Title>Your Transactions</Title>
@@ -106,6 +127,7 @@ class BudgetRoute extends React.Component {
           <button
             className="button"
             onClick={this.toggleNewTransaction}>New Transaction</button>
+
           <FlexRowDiv>
             {/* <button
               className="button"
@@ -115,6 +137,8 @@ class BudgetRoute extends React.Component {
               onClick={() => this.incrementMonth(1)}>Next Month</button>
           </FlexRowDiv>
         </TransactionNav>
+
+        <CSVReader handleChange={this.handleCSVChange} passCSV={this.passCSV}/>
 
         <TransactionFormTable
           handleSubmit={this.handleSubmit}
