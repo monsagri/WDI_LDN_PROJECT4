@@ -73,7 +73,7 @@ class UserRoute extends React.Component{
             x={d => d.x.substring(4,10)}
             y={d => d.y}
             labels={d => {
-              if (d.x.substring(8,10) % 4 === 0 ) return d.y.toFixed(2);
+              if (d.x.substring(8,10) % 5 === 0 ) return d.y.toFixed(2);
               return '';
             }}
           />
