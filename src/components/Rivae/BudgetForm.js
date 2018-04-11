@@ -4,10 +4,23 @@ import BasicTable from '../../assets/styledComponents/BasicTable';
 
 import DeleteButton from '../fragments/DeleteButton';
 
-const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, newCategoryChange, newCategorySave, data}) => {
-  console.log('data in BudgetForm is',data);
-  const currentMonth = data.user.budget.find(budget => budget.currentMonth === data.currentMonth);
-  console.log('current Month is', currentMonth);
+const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
+
+  let currentBudget = {};
+
+  if(data.user.budget.find(budget => budget.month === data.month && budget.year === data.year)) {
+    currentBudget = data.user.budget.find(budget => budget.month === data.month);
+  } else {
+    data.user.budget.push({
+      month: data.month,
+      year: data.year,
+      categories: [
+      ]
+    });
+  }
+
+
+  console.log('current Budget is', currentBudget);
   return (
 
     <form onSubmit={handleSubmit}>
@@ -36,9 +49,9 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, 
                 <input
                   type="number"
                   name={`${category}`}
-                  value={ currentMonth
-                    ? currentMonth.categories.find(budget => budget.name === category)
-                      ?  currentMonth.categories.find(budget => budget.name === category).budgeted
+                  value={ currentBudget.categories
+                    ? currentBudget.categories.find(budget => budget.name === category)
+                      ?  currentBudget.categories.find(budget => budget.name === category).budgeted
                       : 0
                     : 0}
                   onChange={handleChange}
@@ -46,16 +59,16 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, 
               </td>
               <td>{
                 // This checks whether there has been any spending
-                data.user.spendingByCategory[category]
+                data.user.spendingByCategory[category] && currentBudget.categories
                 // if so, check whether a budget was set
-                  ? currentMonth.categories.find(budget => budget.name === category)
+                  ? currentBudget.categories.find(budget => budget.name === category)
                     // If so, subtract spending from budget to see remainig spending money
-                    ? (data.user.spendingByCategory[category] + currentMonth.categories.find(budget => budget.name === category).budgeted).toFixed(2)
+                    ? (data.user.spendingByCategory[category] + currentBudget.categories.find(budget => budget.name === category).budgeted).toFixed(2)
                     // if not, simply display the spending
                     : data.user.spendingByCategory[category].toFixed(2)
                   // if nothing was spent, display either budgeted amount or 0
-                  : currentMonth.categories.find(budget => budget.name === category)
-                    ? currentMonth.categories.find(budget => budget.name === category).budgeted
+                  : currentBudget.categories && currentBudget.categories.find(budget => budget.name === category)
+                    ? currentBudget.categories.find(budget => budget.name === category).budgeted
                     : 0
               }
               </td>
@@ -69,17 +82,6 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, openCategory, 
           )}
         </tbody>
       </BasicTable>
-      {data.newCategory &&
-      <div>
-        <input
-          type="text"
-          name={'newCategory'}
-          onChange={newCategoryChange}
-        />
-        <button className="button" type="button" onClick={newCategorySave}>Save Category</button>
-      </div>
-      }
-      <button className="button" type="button" onClick={openCategory}>Add a category</button>
       <button className="button is-primary">Submit</button>
     </form>
   );

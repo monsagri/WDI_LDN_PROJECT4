@@ -4,6 +4,10 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 
 import BudgetForm from './BudgetForm';
+import CategoryAdder from './CategoryAdder';
+
+import TransactionNav from '../../assets/styledComponents/TransactionNav';
+import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
 
 class BudgetRoute extends React.Component {
   state = {
@@ -28,57 +32,45 @@ class BudgetRoute extends React.Component {
       absoluteSpendingByDate: {},
       transactionsByMonth: {}
     },
-    currentMonth: ''
+    month: 0,
+    year: 0,
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    newCategory: false
   }
 
   componentWillMount() {
-    this.state.currentMonth
+    this.state.month
       ? console.log('Month is already set')
-      : this.setState({ currentMonth: new Date().getMonth()}, () => console.log('month being set',this.state));
+      : this.setState({ month: new Date().getMonth(), year: new Date().getFullYear()}, () => console.log('month and year being set',this.state));
   }
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}/budget`)
-
       .then(res => {
-        console.log('getting res data',res.data);
-        // check whether there is a budget object for the current month
-        if (res.data.budget.find(month => month === this.state.currentMonth)) {
-          this.setState({ user: res.data }, () => console.log('state post   setState',this.state));
-        } else {
-          const editedRes = {...res.data};
-          editedRes.budget.push({
-            currentMonth: this.state.currentMonth,
-            categories: []
-          });
-          this.setState( { user: {...editedRes }});
-        }
-        // if there isn't, create it before passing user in
-
-        console.log('finished setting state');
+        this.setState({ user: res.data }, () => console.log('state post   setState',this.state));
       });
   }
 
   handleChange = ({ target: { name, value } }) => {
     const editedUser = {...this.state.user};
-    const currentMonth = editedUser.budget.find(month => month.currentMonth === this.state.currentMonth);
-    console.log('variable currentMonth is', currentMonth);
-    if (!currentMonth) {
+    const currentBudget = editedUser.budget.find(item => item.month === this.state.month && item.year === this.state.year);
+    console.log('variable currentBudget is', currentBudget);
+    if (!currentBudget) {
       editedUser.budget.push({
-        currentMonth: this.state.currentMonth,
+        currentBudget: this.state.currentBudget,
         categories: []
       });
     }
-    if (!currentMonth.categories.find(category => category.name === name)) {
-      currentMonth.categories.push(
+    if (!currentBudget.categories.find(category => category.name === name)) {
+      currentBudget.categories.push(
         {
           name: name,
           budgeted: parseInt(value, 10)
         }
       );
     } else {
-      const currentBudget = currentMonth.categories.find(budget => budget.name === name);
-      currentBudget.budgeted = parseInt(value, 10);
+      const currentCategory = currentBudget.categories.find(budget => budget.name === name);
+      currentCategory.budgeted = parseInt(value, 10);
     }
     this.setState({ user: {...editedUser}}, () => console.log(this.state));
   }
@@ -112,7 +104,7 @@ class BudgetRoute extends React.Component {
   }
 
   openCategory = () => {
-    this.setState({ newCategory: true });
+    this.setState({ newCategory: !this.state.newCategory });
   }
 
   newCategoryChange = ({ target: { name, value } }) => {
@@ -136,20 +128,46 @@ class BudgetRoute extends React.Component {
       });
   }
 
+  incrementMonth = (increment) => {
+    if (this.state.month + increment < 0) return this.setState({ month: 11 , year: this.state.year - 1}, () => console.log(this.state.month, this.state.year));
+    if (this.state.month + increment > 11) return this.setState({ month: 0 , year: this.state.year + 1}, () => console.log(this.state.month, this.state.year));
+    return this.setState({ month: this.state.month + increment }, () => console.log(this.state.month));
+  }
+
   render(){
     return (
       <div className="container">
         <h2 className="title is-2 has-text-right">{this.state.userId}</h2>
         <h2 className="title is-2 has-text-centered">Your Budget</h2>
 
+        <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
+
+        <TransactionNav>
+          <FlexRowDiv>
+            <button
+              className="button"
+              onClick={() => this.incrementMonth(-1)}>Previous Month</button>
+          </FlexRowDiv>
+
+          <FlexRowDiv>
+            <button
+              className="button"
+              onClick={() => this.incrementMonth(1)}>Next Month</button>
+          </FlexRowDiv>
+        </TransactionNav>
+
         <BudgetForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           removeBudgetCategory={this.removeBudgetCategory}
+          data={this.state}
+        />
+
+        <CategoryAdder
+          toggled={this.state.newCategory}
           openCategory={this.openCategory}
           newCategoryChange={this.newCategoryChange}
           newCategorySave={this.newCategorySave}
-          data={this.state}
         />
       </div>
 

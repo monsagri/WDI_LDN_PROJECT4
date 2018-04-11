@@ -1,16 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
 
 import Title from '../../assets/styledComponents/Title';
 import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
-import BasicTable  from '../../assets/styledComponents/BasicTable';
 
 import TransactionFormTable from './TransactionFormTable';
-import DeleteButton from '../fragments/DeleteButton';
+import TransactionTable from './TransactionTable';
 
 import CSVReader from '../common/CSVReader';
 
@@ -109,35 +107,29 @@ class BudgetRoute extends React.Component {
   }
 
   render(){
-    // console.log('api key is ', filestackAPI);
     return (
       <div className="container">
+
         <Title>Your Transactions</Title>
         <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
+
         <TransactionNav>
           <FlexRowDiv>
             <button
               className="button"
               onClick={() => this.incrementMonth(-1)}>Previous Month</button>
-            {/* <button
-              className="button"
-              onClick={() => this.incrementYear(-1)}>Previous Year</button> */}
           </FlexRowDiv>
-          {/* <Link className="is-pulled-right button" to={`/users/${this.props.match.params.id}/new`}>New Transaction</Link> */}
-          <button
-            className="button"
-            onClick={this.toggleNewTransaction}>New Transaction</button>
 
           <FlexRowDiv>
-            {/* <button
-              className="button"
-              onClick={() => this.incrementYear(1)}>Next Year</button> */}
             <button
               className="button"
               onClick={() => this.incrementMonth(1)}>Next Month</button>
           </FlexRowDiv>
         </TransactionNav>
 
+        <button
+          className="button"
+          onClick={this.toggleNewTransaction}>New Transaction</button>
         <CSVReader handleChange={this.handleCSVChange} passCSV={this.passCSV}/>
 
         <TransactionFormTable
@@ -149,35 +141,42 @@ class BudgetRoute extends React.Component {
         />
 
         {this.state.transactions[this.state.year] !== undefined && this.state.transactions[this.state.year][this.state.month] !== undefined
-          ?<BasicTable>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Need to sort transactions by date first */}
-              {this.state.transactions[this.state.year][this.state.month].map((transaction, i) =>
-                <tr key={i}>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.amount}</td>
-                  <td>{transaction.category}</td>
-                  <td>{transaction.description}</td>
-                  <td><Link className="button" to={`/users/${this.props.match.params.id}/transaction/${transaction._id}/edit`}><i className="fas fa-edit"></i></Link></td>
-                  <td>
-                    <DeleteButton
-                      className="button"
-                      type="button"
-                      onClick={() => this.delete(transaction._id)}
-                    />
-                  </td>
-                </tr>)}
-            </tbody>
-          </BasicTable>
+          // ?<BasicTable>
+          //   <thead>
+          //     <tr>
+          //       <th>Date</th>
+          //       <th>Amount</th>
+          //       <th>Category</th>
+          //       <th>Description</th>
+          //     </tr>
+          //   </thead>
+          //   <tbody>
+          //     {/* Need to sort transactions by date first */}
+          //     {this.state.transactions[this.state.year][this.state.month].map((transaction, i) =>
+          //       <tr key={i}>
+          //         <td>{transaction.date}</td>
+          //         <td>{transaction.amount}</td>
+          //         <td>{transaction.category}</td>
+          //         <td>{transaction.description}</td>
+          //         <td><Link className="button" to={`/users/${this.props.match.params.id}/transaction/${transaction._id}/edit`}><i className="fas fa-edit"></i></Link></td>
+          //         <td>
+          //           <DeleteButton
+          //             className="button"
+          //             type="button"
+          //             onClick={() => this.delete(transaction._id)}
+          //           />
+          //         </td>
+          //       </tr>)}
+          //   </tbody>
+          // </BasicTable>
+          ? <TransactionTable
+            transactions={this.state.transactions}
+            year={this.state.year}
+            month={this.state.month}
+            userId={this.state.userId}
+            remove={this.delete} />
           :<h2 className="subtitle is-2 has-text-centered">No Transactions recorded this Month</h2>}
+
       </div>
     );
   }

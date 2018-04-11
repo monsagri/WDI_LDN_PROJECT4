@@ -20,6 +20,7 @@ class CSVReader extends React.Component {
     this.fileReader.readAsText(file);
   }
 
+
   componentDidMount() {
     // componentDidMount happens after render, so the element will be available here
     this.input.addEventListener('change', this.handleChange);

@@ -46,8 +46,8 @@ const budgetCategories = new mongoose.Schema({
 });
 
 const budgetMonthSchema = new mongoose.Schema({
-  monthStarting: { type: Date },
-  currentMonth: { type: Number },
+  month: { type: Number },
+  year: { type: Number },
   categories: [ budgetCategories ]
 });
 
