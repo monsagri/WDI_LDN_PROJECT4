@@ -69,9 +69,19 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
                 // if so, check whether a budget was set
                   ? currentBudget.categories.find(budget => budget.name === category)
                     // If so, subtract spending from budget to see remainig spending money
-                    ? (data.user.spendingByCategory[category] + currentBudget.categories
-                      .find(budget => budget.name === category).budgeted)
+                    ? (parseInt(data.user.transactionsByMonth[data.year][data.month]
+                      .filter(transaction => transaction.category === category)
+                      .map(transaction => transaction.amount)
+                      .reduce((a, b) => a + b, 0)
                       .toFixed(2)
+                      , 10)
+
+                      + parseInt(currentBudget.categories
+                        .find(budget => budget.name === category).budgeted
+                        .toFixed(2)
+                        ,10)
+                    )
+
                     // if not, simply display the spending
                     : data.user.transactionsByMonth[data.year] && data.user.transactionsByMonth[data.year][data.month]
                       ? data.user.transactionsByMonth[data.year][data.month]
