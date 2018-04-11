@@ -77,14 +77,20 @@ class BudgetRoute extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    // remove empty budgets before sending to server
+    const cleanedUser = {...this.state.user};
+    console.log('user  now is ', cleanedUser);
+    cleanedUser.budget.filter(budget => budget.categories.length !== 0);
+    this.setState({user: cleanedUser});
     console.log('budget being sent to backend is',this.state.user.budget);
+    // send stuff back
     axios({
       method: 'put',
       url: `/api/users/${this.props.match.params.id}/budget`,
       headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state.user.budget
     })
-      .then(() => this.props.history.push(`users/${this.props.match.params.id}/budget`));
+      .then(() => this.props.history.push(`/users/${this.props.match.params.id}/budget`));
   }
 
   removeBudgetCategory = (category) => {

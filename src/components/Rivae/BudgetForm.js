@@ -40,8 +40,12 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
               <td>{category}</td>
               <td>
                 {/* This pulls the amount spent on the category if it exists or sets it to 0 */}
-                {data.user.spendingByCategory[category]
-                  ? data.user.spendingByCategory[category].toFixed(2)
+                {data.user.transactionsByMonth[data.year] && data.user.transactionsByMonth[data.year][data.month]
+                  ? data.user.transactionsByMonth[data.year][data.month]
+                    .filter(transaction => transaction.category === category)
+                    .map(transaction => transaction.amount)
+                    .reduce((a, b) => a + b, 0)
+                    .toFixed(2)
                   : 0}
               </td>
               <td>
@@ -59,13 +63,23 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
               </td>
               <td>{
                 // This checks whether there has been any spending
-                data.user.spendingByCategory[category] && currentBudget.categories
+                data.user.transactionsByMonth[data.year]
+                && data.user.transactionsByMonth[data.year][data.month]
+                && currentBudget.categories
                 // if so, check whether a budget was set
                   ? currentBudget.categories.find(budget => budget.name === category)
                     // If so, subtract spending from budget to see remainig spending money
-                    ? (data.user.spendingByCategory[category] + currentBudget.categories.find(budget => budget.name === category).budgeted).toFixed(2)
+                    ? (data.user.spendingByCategory[category] + currentBudget.categories
+                      .find(budget => budget.name === category).budgeted)
+                      .toFixed(2)
                     // if not, simply display the spending
-                    : data.user.spendingByCategory[category].toFixed(2)
+                    : data.user.transactionsByMonth[data.year] && data.user.transactionsByMonth[data.year][data.month]
+                      ? data.user.transactionsByMonth[data.year][data.month]
+                        .filter(transaction => transaction.category === category)
+                        .map(transaction => transaction.amount)
+                        .reduce((a, b) => a + b, 0)
+                        .toFixed(2)
+                      : 0
                   // if nothing was spent, display either budgeted amount or 0
                   : currentBudget.categories && currentBudget.categories.find(budget => budget.name === category)
                     ? currentBudget.categories.find(budget => budget.name === category).budgeted
