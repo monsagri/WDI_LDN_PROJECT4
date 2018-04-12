@@ -141,7 +141,7 @@ class BudgetRoute extends React.Component {
         </FlexColumnDiv>
 
 
-        <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
+        <h3 className="title is-4">{this.state.months[this.state.month]} - {this.state.year}</h3>
 
         <TransactionNav>
           <FlexRowDiv>

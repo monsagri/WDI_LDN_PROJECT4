@@ -5,7 +5,7 @@ const BasicTable = styled.table`
   margin: 0 auto;
   th {
     text-decoration: underline;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
     text-align: right;
     padding-bottom: 20px;
@@ -13,10 +13,10 @@ const BasicTable = styled.table`
 
   }
   tr {
-    height: 50px;
+    height: 25px;
   }
   td {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: right;
     height: 40px;
   }
@@ -24,7 +24,7 @@ const BasicTable = styled.table`
     height: 25px;
     width: 100px;
     text-align: right;
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 10px 2px;
   }
 `;

@@ -56,13 +56,13 @@ class UserRoute extends React.Component{
       <div className="container">
         <UserInfo className="userInfo">
           <AvatarFrame src={this.state.user.avatar}></AvatarFrame>
-          <h1 className="title is-1">{this.state.user.username}</h1>
+          <h3 className="title is-3">{this.state.user.username}</h3>
         </UserInfo>
 
         {this.state.user.transactions.length === 0 &&
         <Link to={`/users/${this.props.match.params.id}/transactions`} className="title is-1 has-text-centered">You have no transactions on file yet. Lets add some!</Link>}
 
-        <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance.toFixed(2)}</h3>
+        <h4 className="title is-4 has-text-centered">Current Balance: {this.state.user.balance.toFixed(2)}</h4>
 
         {/* Balance Graph */}
         <VictoryChart
@@ -87,7 +87,7 @@ class UserRoute extends React.Component{
         <FlexRowDiv>
           <PieChartDiv>
             <h3 className="subtitle is-3 has-text-centered">Spending By Category</h3>
-            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
+            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending.toFixed(2)}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.spendingByCategory)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
@@ -116,7 +116,7 @@ class UserRoute extends React.Component{
 
           <PieChartDiv>
             <h3 className="subtitle is-3 has-text-centered">Spending By Payee</h3>
-            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending}</h4>
+            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending.toFixed(2)}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.spendingByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}

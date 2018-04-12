@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const HeroTitle = styled.h1`
   font-family: 'Playfair Display', serif;
-  font-size: 7rem;
+  font-size: 5rem;
   font-weight: bold;
   position: absolute;
   top: 10%;
