@@ -10,6 +10,7 @@ const CategoryAdder = ({toggled, openCategory, newCategoryChange, newCategorySav
       {toggled &&
     <div>
       <input
+        className="button"
         type="text"
         name={'newCategory'}
         onChange={newCategoryChange}

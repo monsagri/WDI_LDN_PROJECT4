@@ -55,8 +55,8 @@ class UserRoute extends React.Component{
     return (
       <div className="container">
         <UserInfo className="userInfo">
-          <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
-          <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
+          <AvatarFrame src={this.state.user.avatar}></AvatarFrame>
+          <h1 className="title is-1">{this.state.user.username}</h1>
         </UserInfo>
 
         {this.state.user.transactions.length === 0 &&

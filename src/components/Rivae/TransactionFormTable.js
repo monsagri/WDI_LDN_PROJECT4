@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BasicTable from '../../assets/styledComponents/BasicTable';
+import InputTable from '../../assets/styledComponents/InputTable';
 import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
 import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
 
@@ -10,7 +10,7 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
   return (
 
     <form onSubmit={handleSubmit}>
-      <BasicTable>
+      <InputTable>
         <tbody>
           <tr>
             <td>
@@ -63,7 +63,7 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
             </td>
           </tr>
         </tbody>
-      </BasicTable>
+      </InputTable>
     </form>
   );
 

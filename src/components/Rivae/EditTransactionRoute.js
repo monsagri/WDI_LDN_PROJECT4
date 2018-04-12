@@ -4,6 +4,8 @@ import Auth from '../../lib/Auth';
 
 import Form from './Form';
 
+import RivaeFormContainer from '../../assets/styledComponents/RivaeFormContainer';
+
 class EditRoute extends React.Component {
 
   state = {
@@ -44,14 +46,13 @@ class EditRoute extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h2 className="title is-2">Correct your Transaction</h2>
+      <RivaeFormContainer className="container">
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           data={this.state}
         />
-      </div>
+      </RivaeFormContainer>
     );
 
   }

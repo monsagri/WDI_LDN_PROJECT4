@@ -107,7 +107,7 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
           )}
         </tbody>
       </BasicTable>
-      <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
+      <RivaeSubmitButton className="button is-pulled-right">Submit</RivaeSubmitButton>
     </form>
   );
 

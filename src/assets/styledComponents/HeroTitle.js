@@ -5,9 +5,9 @@ const HeroTitle = styled.h1`
   font-size: 7rem;
   font-weight: bold;
   position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-30%, -50%);
+  top: 10%;
+  left: 47%;
+  transform: translate(-10%, -47%);
   color: white;
 `;
 

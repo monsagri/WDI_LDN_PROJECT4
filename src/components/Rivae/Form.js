@@ -7,6 +7,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
   return (
 
     <form onSubmit={handleSubmit}>
+      <h1 className="title is-1">Correct your Transaction</h1>
       <div className="field">
         <label htmlFor="date">Date</label>
         <input className="input"

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
 
 class CSVReader extends React.Component {
 
@@ -42,10 +43,12 @@ class CSVReader extends React.Component {
     return (
       <div>
         {/* only accepts images */}
-        <h4 className="subtitle is-4">Upload a Bank Statement</h4>
+        <h4 className="subtitle is-4 has-text-centered">Upload a Bank Statement</h4>
         <div>
           <input className="button" type="file" accept="text/csv" ref={element => this.input = element}/>
           <RivaeSubmitButton className="button" onClick={this.props.passCSV}>Submit</RivaeSubmitButton>
+          <RivaeDeleteButton className="button" onClick={this.props.toggleTransaction}>Cancel</RivaeDeleteButton>
+
           <div
             className="dropzone"
             // ref gets javascript element, like document getElementBy

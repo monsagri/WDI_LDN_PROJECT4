@@ -5,6 +5,7 @@ import Auth from '../../lib/Auth';
 
 import Title from '../../assets/styledComponents/Title';
 import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
+import FlexColumnDiv  from '../../assets/styledComponents/FlexColumnDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
 import RivaeButton  from '../../assets/styledComponents/RivaeButton';
 
@@ -32,6 +33,7 @@ class BudgetRoute extends React.Component {
       errors: {}
     },
     newTransactionToggle: false,
+    bulkTransactionToggle: false,
     text: ''
   }
 
@@ -93,6 +95,11 @@ class BudgetRoute extends React.Component {
     }}, () => console.log(this.state));
   }
 
+  toggleBulkTransaction = () => {
+    this.setState( { bulkTransactionToggle: !this.state.bulkTransactionToggle
+    }, () => console.log(this.state));
+  }
+
   handleCSVChange = text => {
     // sets state to the text the user has uploaded
     this.setState({ text }, () => console.log(this.state));
@@ -115,16 +122,23 @@ class BudgetRoute extends React.Component {
 
         <Title>Your Transactions</Title>
 
-        <TransactionNav>
+        <FlexColumnDiv>
           <div>
-            <h4 className="subtitle is-4">Input a single Transaction</h4>
             <RivaeButton
               className="button"
               onClick={this.toggleNewTransaction}>New Transaction</RivaeButton>
+            {this.state.bulkTransactionToggle || <RivaeButton
+              className="button"
+              onClick={this.toggleBulkTransaction}>Upload CSV File</RivaeButton>}
+          </div>
+          <div>
+            {this.state.bulkTransactionToggle && <CSVReader
+              handleChange={this.handleCSVChange}
+              toggleTransaction={this.toggleBulkTransaction}
+              passCSV={this.passCSV}/>}
           </div>
 
-          <CSVReader handleChange={this.handleCSVChange} passCSV={this.passCSV}/>
-        </TransactionNav>
+        </FlexColumnDiv>
 
 
         <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>

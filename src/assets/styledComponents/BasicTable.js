@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BasicTable = styled.table`
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   th {
     text-decoration: underline;
@@ -13,11 +13,12 @@ const BasicTable = styled.table`
 
   }
   tr {
-    margin-bottom: 10px;
+    height: 50px;
   }
   td {
     font-size: 1.5rem;
     text-align: right;
+    height: 40px;
   }
   input {
     height: 25px;
