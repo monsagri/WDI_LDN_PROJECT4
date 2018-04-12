@@ -11,7 +11,6 @@ import Navbar from './components/common/Navbar';
 
 import HomeRoute from './components/Rivae/HomeRoute';
 import UserRoute from './components/Rivae/UserRoute';
-import NewTransactionRoute from './components/Rivae/NewTransactionRoute';
 import EditTransactionRoute from './components/Rivae/EditTransactionRoute';
 import TransactionsRoute from './components/Rivae/TransactionsRoute';
 import BudgetRoute from './components/Rivae/BudgetRoute';
@@ -30,7 +29,6 @@ class App extends React.Component {
 
           <Switch>
             <PrivateRoute path="/users/:id/budget" component={BudgetRoute} />
-            <PrivateRoute path="/users/:id/new" component={NewTransactionRoute} />
             <PrivateRoute path="/users/:id/transaction/:transactionId/edit" component={EditTransactionRoute} />
             <PrivateRoute path="/users/:id/transactions" component={TransactionsRoute} />
             <PrivateRoute path="/users/:id" component={UserRoute} />
