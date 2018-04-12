@@ -62,7 +62,6 @@ class BudgetRoute extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.newTransaction);
     axios({
       method: 'post',
       url: `/api/users/${Auth.getPayload().sub}/transactions`,
@@ -77,7 +76,6 @@ class BudgetRoute extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    console.log(name, value);
     const errors = { ...this.state.errors, [name]: ''};
     const editedTransaction = {...this.state.newTransaction};
     editedTransaction[name] = value;
@@ -115,6 +113,19 @@ class BudgetRoute extends React.Component {
       <div className="container">
 
         <Title>Your Transactions</Title>
+
+        <TransactionNav>
+          <div>
+            <h4 className="subtitle is-4">Input a single Transaction</h4>
+            <button
+              className="button"
+              onClick={this.toggleNewTransaction}>New Transaction</button>
+          </div>
+
+          <CSVReader handleChange={this.handleCSVChange} passCSV={this.passCSV}/>
+        </TransactionNav>
+
+        
         <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
 
         <TransactionNav>
@@ -131,11 +142,6 @@ class BudgetRoute extends React.Component {
           </FlexRowDiv>
         </TransactionNav>
 
-        <button
-          className="button"
-          onClick={this.toggleNewTransaction}>New Transaction</button>
-        <CSVReader handleChange={this.handleCSVChange} passCSV={this.passCSV}/>
-
         <TransactionFormTable
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
@@ -145,34 +151,6 @@ class BudgetRoute extends React.Component {
         />
 
         {this.state.transactions[this.state.year] !== undefined && this.state.transactions[this.state.year][this.state.month] !== undefined
-          // ?<BasicTable>
-          //   <thead>
-          //     <tr>
-          //       <th>Date</th>
-          //       <th>Amount</th>
-          //       <th>Category</th>
-          //       <th>Description</th>
-          //     </tr>
-          //   </thead>
-          //   <tbody>
-          //     {/* Need to sort transactions by date first */}
-          //     {this.state.transactions[this.state.year][this.state.month].map((transaction, i) =>
-          //       <tr key={i}>
-          //         <td>{transaction.date}</td>
-          //         <td>{transaction.amount}</td>
-          //         <td>{transaction.category}</td>
-          //         <td>{transaction.description}</td>
-          //         <td><Link className="button" to={`/users/${this.props.match.params.id}/transaction/${transaction._id}/edit`}><i className="fas fa-edit"></i></Link></td>
-          //         <td>
-          //           <DeleteButton
-          //             className="button"
-          //             type="button"
-          //             onClick={() => this.delete(transaction._id)}
-          //           />
-          //         </td>
-          //       </tr>)}
-          //   </tbody>
-          // </BasicTable>
           ? <TransactionTable
             transactions={this.state.transactions}
             year={this.state.year}

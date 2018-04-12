@@ -58,8 +58,10 @@ class UserRoute extends React.Component{
           <AvatarFrame src={this.state.user.avatar} className="is-pulled-right"></AvatarFrame>
           <h1 className="title is-1 has-text-right  ">{this.state.user.username}</h1>
         </UserInfo>
+
         {this.state.user.transactions.length === 0 &&
-        <Link to={`/users/${this.props.match.params.id}/transactions`} className="title is-2 has-text-centered">You have no transactions on file yet. Lets add some!</Link>}
+        <Link to={`/users/${this.props.match.params.id}/transactions`} className="title is-1 has-text-centered">You have no transactions on file yet. Lets add some!</Link>}
+
         <h3 className="title is-3 has-text-centered">Current Balance: {this.state.user.balance.toFixed(2)}</h3>
 
         {/* Balance Graph */}
@@ -90,11 +92,6 @@ class UserRoute extends React.Component{
               data={dataVis.absoluteGraphData(this.state.user.spendingByCategory)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
-              // labelComponent={
-              //   <VictoryLabel
-              //     angle={30}
-              //     capHeight={0.5}
-              //   />}
               events={[{ target: 'data', eventHandlers: {
                 onClick: () => {
                   return [
@@ -124,11 +121,6 @@ class UserRoute extends React.Component{
               data={dataVis.absoluteGraphData(this.state.user.spendingByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
-              // labelComponent={
-              //   <VictoryLabel
-              //     angle={30}
-              //     capHeight={0.5}
-              //   />}
               events={[{ target: 'data', eventHandlers: {
                 onClick: () => {
                   return [
@@ -160,11 +152,6 @@ class UserRoute extends React.Component{
               data={dataVis.absoluteGraphData(this.state.user.incomeByCategory)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
-              // labelComponent={
-              //   <VictoryLabel
-              //     angle={30}
-              //     capHeight={0.5}
-              //   />}
               events={[{ target: 'data', eventHandlers: {
                 onClick: () => {
                   return [
@@ -194,11 +181,6 @@ class UserRoute extends React.Component{
               data={dataVis.absoluteGraphData(this.state.user.incomeByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
               labels={(d) => d.a}
-              // labelComponent={
-              //   <VictoryLabel
-              //     angle={30}
-              //     capHeight={0.5}
-              //   />}
               events={[{ target: 'data', eventHandlers: {
                 onClick: () => {
                   return [
