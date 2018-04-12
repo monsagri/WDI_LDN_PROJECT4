@@ -1,21 +1,20 @@
 /* global api, describe, it, expect, beforeEach */
 
-const User = require('../../models/user');
+const User = require('../../../models/User');
 const jwt = require('jsonwebtoken');
-const { secret } = require('../../config/environment');
+const { secret } = require('../../../config/environment');
 
 const transactionData = {
-  name: 'Life',
-  artist: 'Des\'ree',
-  releaseDate: '08-06-1998',
-  genre: 'Pop',
-  album: 'Supernatural'
+  date: new Date(),
+  amount: -400,
+  category: 'testing',
+  description: 'test'
 };
 
 const userData = { username: 'test', email: 'test@test.com', password: 'test', passwordConfirmation: 'test' };
 let token;
 
-describe('POST /bangers', () => {
+describe('POST /transactions', () => {
   beforeEach(done => {
     Promise.all([
       User.remove({})
@@ -51,11 +50,10 @@ describe('POST /bangers', () => {
         expect(res.body).to.be.an('object');
         expect(res.body).to.include.keys([
           '_id',
-          'name',
-          'artist',
-          'releaseDate',
-          'genre',
-          'album'
+          'date',
+          'amount',
+          'category',
+          'description'
         ]);
         done();
       });
@@ -67,11 +65,10 @@ describe('POST /bangers', () => {
       .set('Authorization', `Bearer ${token}`)
       .send(transactionData)
       .end((err, res) => {
-        expect(res.body.name).to.eq(transactionData.name);
-        expect(res.body.artist).to.eq(transactionData.artist);
-        expect(res.body.releaseDate).to.deep.eq(transactionData.releaseDate);
-        expect(res.body.genre).to.eq(transactionData.genre);
-        expect(res.body.album).to.eq(transactionData.album);
+        expect(res.body.date).to.eq(transactionData.date);
+        expect(res.body.amount).to.eq(transactionData.amount);
+        expect(res.body.category).to.deep.eq(transactionData.category);
+        expect(res.body.description).to.eq(transactionData.description);
         done();
       });
   });

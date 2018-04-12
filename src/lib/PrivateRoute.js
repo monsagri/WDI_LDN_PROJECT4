@@ -5,19 +5,16 @@ import { Route, Redirect } from 'react-router-dom';
 import Flash from './Flash';
 
 const PrivateRoute =  ({ component: Component, ...rest }) => {
-  Flash.setMessage('danger', 'You must be logged in to view this page');
+  console.log(Auth.isAuthenticated());
   return <Route
     {...rest}
     render={props =>
-      Auth.isAuthenticated ? (
-
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }}
-        />
-      ) : <Component {...props} />
+      Auth.isAuthenticated() ?
+        <Component {...props} />
+        : (
+          Flash.setMessage('danger', 'You must be logged in to view this page'),
+          <Redirect to={{ pathname: '/login', state: { from: props.location }}} />
+        )
     }
   />;
 };

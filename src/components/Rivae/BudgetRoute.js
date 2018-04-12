@@ -45,7 +45,11 @@ class BudgetRoute extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/users/${this.props.match.params.id}/budget`)
+    axios({
+      method: 'get',
+      url: `/api/users/${this.props.match.params.id}/budget`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
       .then(res => {
         this.setState({ user: res.data }, () => console.log('state post   setState',this.state));
       });

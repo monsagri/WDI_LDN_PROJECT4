@@ -82,7 +82,7 @@ function createTransactionRoute(req, res, next) {
       const newTransaction = req.body;
       user.transactions.push(newTransaction);
       user.save();
-      res.json(user.transactionsByMonth);
+      res.status(201).json(user.transactionsByMonth);
     })
     .catch(next);
 }

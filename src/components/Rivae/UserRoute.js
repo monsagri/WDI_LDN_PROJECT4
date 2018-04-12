@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { VictoryPie, VictoryLine, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 
+import Auth from '../../lib/Auth';
+
 import PieChartDiv from '../../assets/styledComponents/PieChartDiv';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
 import UserInfo from '../../assets/styledComponents/UserInfo';
@@ -34,18 +36,18 @@ class UserRoute extends React.Component{
   }
 
   componentDidMount() {
-    axios.get(`/api/users/${this.props.match.params.id}`)
+    axios({
+      method: 'get',
+      url: `/api/users/${this.props.match.params.id}`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
+
 
       .then(res => {
         console.log('getting res data',res.data);
         this.setState({ user: res.data }, () => console.log('state post setState',this.state));
         console.log('finished setting state');
       });
-  }
-
-  newTransaction= () => {
-    axios.post(`/api/users/${this.props.match.params.id}`)
-      .then(res => this.setState({ user: res.data}, () => console.log(this.state)));
   }
 
   render() {
