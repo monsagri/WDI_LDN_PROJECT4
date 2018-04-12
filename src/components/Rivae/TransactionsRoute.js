@@ -3,11 +3,11 @@ import axios from 'axios';
 
 import Auth from '../../lib/Auth';
 
-import Title from '../../assets/styledComponents/Title';
 import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
 import FlexColumnDiv  from '../../assets/styledComponents/FlexColumnDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
 import RivaeButton  from '../../assets/styledComponents/RivaeButton';
+import RivaeTitle from '../../assets/styledComponents/RivaeTitle';
 
 import TransactionFormTable from './TransactionFormTable';
 import TransactionTable from './TransactionTable';
@@ -120,7 +120,7 @@ class BudgetRoute extends React.Component {
     return (
       <div className="container">
 
-        <Title>Your Transactions</Title>
+        <RivaeTitle>Your Transactions</RivaeTitle>
 
         <FlexColumnDiv>
           <div>

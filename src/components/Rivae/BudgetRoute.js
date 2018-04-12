@@ -9,7 +9,7 @@ import CategoryAdder from './CategoryAdder';
 import TransactionNav from '../../assets/styledComponents/TransactionNav';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
 import RivaeButton from '../../assets/styledComponents/RivaeButton';
-import Title from '../../assets/styledComponents/Title';
+import RivaeTitle from '../../assets/styledComponents/RivaeTitle';
 
 class BudgetRoute extends React.Component {
   state = {
@@ -150,7 +150,7 @@ class BudgetRoute extends React.Component {
     return (
       <div className="container">
         <h2 className="title is-2 has-text-right">{this.state.userId}</h2>
-        <Title>Your Budget</Title>
+        <RivaeTitle>Your Budget</RivaeTitle>
 
         <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
 
