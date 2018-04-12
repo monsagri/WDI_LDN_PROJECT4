@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'bulma';
 
+import PrivateRoute from './lib/PrivateRoute';
+
 import FlashMessages from './components/common/FlashMessages';
 import Navbar from './components/common/Navbar';
 
@@ -17,6 +19,7 @@ import BudgetRoute from './components/Rivae/BudgetRoute';
 import RegisterRoute from './components/auth/Register';
 import LoginRoute from './components/auth/Login';
 
+
 class App extends React.Component {
   render() {
     return (
@@ -26,12 +29,11 @@ class App extends React.Component {
           <FlashMessages />
 
           <Switch>
-
-            <Route path="/users/:id/budget" component={BudgetRoute} />
-            <Route path="/users/:id/new" component={NewTransactionRoute} />
-            <Route path="/users/:id/transaction/:transactionId/edit" component={EditTransactionRoute} />
-            <Route path="/users/:id/transactions" component={TransactionsRoute} />
-            <Route path="/users/:id" component={UserRoute} />
+            <PrivateRoute path="/users/:id/budget" component={BudgetRoute} />
+            <PrivateRoute path="/users/:id/new" component={NewTransactionRoute} />
+            <PrivateRoute path="/users/:id/transaction/:transactionId/edit" component={EditTransactionRoute} />
+            <PrivateRoute path="/users/:id/transactions" component={TransactionsRoute} />
+            <PrivateRoute path="/users/:id" component={UserRoute} />
             <Route path="/register" component={RegisterRoute} />
             <Route path="/login" component={LoginRoute} />
             <Route path="/" component={HomeRoute} />

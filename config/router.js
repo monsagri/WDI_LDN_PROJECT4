@@ -3,35 +3,37 @@ const router = require('express').Router();
 const users = require('../controllers/users');
 const auth = require('../controllers/auth');
 
+const secureRoute = require('../lib/secureRoute');
+
 router.route('/users')
-  .get(users.showAll);
+  .get(secureRoute, users.showAll);
 
 router.route('/users/:userId')
-  .get(users.show)
-  .put(users.update)
-  .delete(users.delete);
+  .get(secureRoute, users.show)
+  .put(secureRoute, users.update)
+  .delete(secureRoute, users.delete);
 
 router.route('/users/:userId/budget')
-  .get(users.showBudget)
-  .post(users.addBudgetCategory)
-  .put(users.editBudget)
-  .delete(users.removeBudgetCategory);
+  .get(secureRoute, users.showBudget)
+  .post(secureRoute, users.addBudgetCategory)
+  .put(secureRoute, users.editBudget)
+  .delete(secureRoute, users.removeBudgetCategory);
 
 router.route('/users/:userId/transactions')
-  .get(users.getAllTransactions)
-  .post(users.newTransaction);
+  .get(secureRoute, users.getAllTransactions)
+  .post(secureRoute, users.newTransaction);
 
 router.route('/users/:userId/transactions/bulk')
-  .post(users.csvUpload);
+  .post(secureRoute, users.csvUpload);
 
 
 router.route('/users/:userId/transaction/:transactionId')
-  .get(users.getOneTransaction)
-  .delete(users.deleteTransaction);
+  .get(secureRoute, users.getOneTransaction)
+  .delete(secureRoute, users.deleteTransaction);
 
 router.route('/users/:userId/transaction/:transactionId/edit')
-  .get(users.getOneTransaction)
-  .put(users.editTransaction);
+  .get(secureRoute, users.getOneTransaction)
+  .put(secureRoute, users.editTransaction);
 
 router.route('/register')
   .post(auth.register);
