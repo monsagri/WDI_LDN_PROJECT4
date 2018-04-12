@@ -1,7 +1,7 @@
 import React from 'react';
 
 import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
-import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
+import RivaeCancelButton from '../../assets/styledComponents/RivaeCancelButton';
 
 class CSVReader extends React.Component {
 
@@ -47,7 +47,7 @@ class CSVReader extends React.Component {
         <div>
           <input className="button" type="file" accept="text/csv" ref={element => this.input = element}/>
           <RivaeSubmitButton className="button" onClick={this.props.passCSV}>Submit</RivaeSubmitButton>
-          <RivaeDeleteButton className="button" onClick={this.props.toggleTransaction}>Cancel</RivaeDeleteButton>
+          <RivaeCancelButton className="button" onClick={this.props.toggleTransaction}>Cancel</RivaeCancelButton>
 
           <div
             className="dropzone"

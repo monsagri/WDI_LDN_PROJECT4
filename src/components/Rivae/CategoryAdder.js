@@ -1,7 +1,7 @@
 import React from 'react';
 
 import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
-import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
+import RivaeCancelButton from '../../assets/styledComponents/RivaeCancelButton';
 import RivaeButton from '../../assets/styledComponents/RivaeButton';
 
 const CategoryAdder = ({toggled, openCategory, newCategoryChange, newCategorySave}) => {
@@ -19,9 +19,9 @@ const CategoryAdder = ({toggled, openCategory, newCategoryChange, newCategorySav
     </div>
       }
       {toggled
-        ? <RivaeDeleteButton className="button" type="button" onClick={openCategory}>
+        ? <RivaeCancelButton className="button" type="button" onClick={openCategory}>
         Undo
-        </RivaeDeleteButton>
+        </RivaeCancelButton>
         : <RivaeButton className="button" type="button" onClick={openCategory}>
         Add a Category
         </RivaeButton>

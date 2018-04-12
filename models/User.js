@@ -5,14 +5,14 @@ const _ = require('lodash');
 const transactionSchema = new mongoose.Schema({
   id: { type: String },
   created: { type: Date, default: new Date() },
-  amount: { type: Number, required: true },
-  date: { type: String },
+  amount: { type: Number, required: 'Please provide an amount' },
+  date: { type: String, required: 'Please provide a date'  },
   currency: { type: String },
   local_amount: { type: Number },
   local_currency: { type: String },
-  category: { type: String },
+  category: { type: String, required: 'Please provide a category'  },
   emoji: { type: String },
-  description: { type: String },
+  description: { type: String, required: 'Please provide a description'  },
   address: { type: String },
   notes: { type: String },
   receipt: { type: String }
@@ -52,11 +52,11 @@ const budgetMonthSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
+  username: { type: String, required: 'Please choose a username' },
   avatar: { type: String, default: 'https://enbaca.com/web/assets/image-resources/avatar.png'},
   admin: { type: Boolean, default: false },
-  email: { type: String, required: true, unique: true }, // needs a pattern!
-  password: { type: String, required: true },
+  email: { type: String, required: 'Please enter your email address', unique: true }, // needs a pattern!
+  password: { type: String, required: 'You really should use a password!' },
   created: { type: Date, default: new Date()},
   transactions: [ transactionSchema ],
   budget: [ budgetMonthSchema ],

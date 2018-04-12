@@ -2,7 +2,7 @@ import React from 'react';
 
 import InputTable from '../../assets/styledComponents/InputTable';
 import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
-import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
+import RivaeCancelButton from '../../assets/styledComponents/RivaeCancelButton';
 
 const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
   console.log(data);
@@ -60,10 +60,10 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
               <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
             </td>
             <td>
-              <RivaeDeleteButton
+              <RivaeCancelButton
                 className="button"
                 type="button"
-                onClick={toggle}>Cancel</RivaeDeleteButton>
+                onClick={toggle}>Cancel</RivaeCancelButton>
             </td>
           </tr>
         </tbody>
