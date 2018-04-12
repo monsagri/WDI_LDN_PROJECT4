@@ -8,7 +8,7 @@ const userData = {
   passwordConfirmation: 'test'
 };
 
-describe('POST /login', () => {
+xdescribe('POST /login', () => {
   beforeEach(done => {
     User.remove({})
       .then(() => User.create(userData))

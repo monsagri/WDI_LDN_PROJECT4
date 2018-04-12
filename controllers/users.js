@@ -47,7 +47,6 @@ function addBudgetCategoryRoute(req,res,next) {
 function editBudgetRoute(req,res,next) {
   User.findById(req.params.userId)
     .then(user => {
-      console.log('old budget', user.budget, 'new budget', req.body);
       user.budget = req.body;
       user.save();
       res.json(user);
@@ -59,7 +58,6 @@ function deleteBudgetCategoryRoute(req,res,next) {
   User.findById(req.params.userId)
     .then( user => {
       const index = user.categories.indexOf(req.body.category);
-      console.log(index);
       user.categories.splice(index, 1);
       user.save();
       res.json(user.categories);
@@ -75,10 +73,8 @@ function getAllTransactionsRoute(req, res, next) {
 }
 
 function createTransactionRoute(req, res, next) {
-  console.log(req.params.id);
   User.findById(req.params.userId)
     .then(user => {
-      console.log(user);
       const newTransaction = req.body;
       user.transactions.push(newTransaction);
       user.save();
@@ -88,11 +84,9 @@ function createTransactionRoute(req, res, next) {
 }
 
 function getOneTransactionRoute(req, res, next) {
-  console.log(req.params);
   User.findById(req.params.userId)
     .then(user => {
       const transaction = user.transactions.id(req.params.transactionId);
-      console.log(transaction);
       res.json(transaction);
     })
     .catch(next);
@@ -112,11 +106,9 @@ function editTransactionRoute(req, res, next) {
 }
 
 function deleteTransactionRoute(req, res, next) {
-  console.log(req.params);
   User.findById(req.params.userId)
     .then(user => {
       const transaction = user.transactions.id(req.params.transactionId);
-      console.log('transaction found is', transaction);
       transaction.remove();
       user.save();
       res.json(user.transactionsByMonth);
@@ -133,7 +125,6 @@ function csvUploadRoute(req, res, next) {
       .then(user => {
         // user.transactions.concat(parsedCSV);
         parsedCSV.forEach(transaction => user.transactions.push(transaction));
-        console.log(user.transactions);
         user.save();
         res.json(user.transactions);
       })

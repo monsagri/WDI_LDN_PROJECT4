@@ -34,8 +34,6 @@ class BudgetRoute extends React.Component {
     text: ''
   }
 
-
-
   componentDidMount() {
     axios({
       method: 'get',
