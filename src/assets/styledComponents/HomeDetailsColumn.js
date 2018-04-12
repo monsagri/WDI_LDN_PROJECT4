@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-const FlexColumnDiv = styled.div`
+const HomeDetailsColumn = styled.div`
+  height: 20vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
 `;
 
-export default FlexColumnDiv;
+export default HomeDetailsColumn;
