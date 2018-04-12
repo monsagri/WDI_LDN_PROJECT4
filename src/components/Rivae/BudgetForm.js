@@ -60,6 +60,7 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
                       : 0
                     : 0}
                   onChange={handleChange}
+                  
                 />
               </td>
               <td>{

@@ -15,6 +15,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
           name="date"
           onChange={handleChange}
           type="date"
+          required="true"
         />
         {data.errors.date && <small>{data.errors.date}</small>}
       </div>
@@ -25,6 +26,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
           name="amount"
           onChange={handleChange}
           type="number"
+          required="true"
         />
         {data.errors.amount && <small>{data.errors.amount}</small>}
       </div>
@@ -34,6 +36,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
           value={data.category}
           name="category"
           onChange={handleChange}
+          required="true"
         />
         {data.errors.category && <small>{data.errors.category}</small>}
       </div>
@@ -44,6 +47,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
           name="description"
           onChange={handleChange}
           placeholder="Name of Payee, etc."
+          required="true"
         />
         {data.errors.description && <small>{data.errors.description}</small>}
       </div>

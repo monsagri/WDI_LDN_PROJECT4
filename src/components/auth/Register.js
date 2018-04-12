@@ -9,7 +9,7 @@ import RivaeFormContainer from '../../assets/styledComponents/RivaeFormContainer
 class Register extends React.Component {
 
   state = {
-
+    errors: {}
   }
 
   handleSubmit = (e) => {
@@ -19,7 +19,8 @@ class Register extends React.Component {
         console.log(res);
         Flash.setMessage('success', 'Thank you for registering. Please log in now');
       })
-      .then(() => this.props.history.push('/'));
+      .then(() => this.props.history.push('/'))
+      .catch(err => this.setState( {errors: err.response.data.errors}));
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -37,8 +38,10 @@ class Register extends React.Component {
               placeholder="Username"
               name="username"
               autoComplete="username"
+              required="true"
               onChange={this.handleChange}
             />
+            {this.state.errors.username && <small>{this.state.errors.username}</small>}
           </div>
           <div className="field">
             <label htmlFor="email">Email</label>
@@ -47,8 +50,10 @@ class Register extends React.Component {
               placeholder="Email"
               name="email"
               autoComplete="email"
+              required="true"
               onChange={this.handleChange}
             />
+            {this.state.errors.email && <small>{this.state.errors.email}</small>}
           </div>
           <div className="field">
             <label htmlFor="password">Password</label>
@@ -58,8 +63,10 @@ class Register extends React.Component {
               placeholder="Password"
               name="password"
               autoComplete="new-password"
+              required="true"
               onChange={this.handleChange}
             />
+            {this.state.errors.password && <small>{this.state.errors.password}</small>}
           </div>
           <div className="field">
             <label htmlFor="passwordConfirmation">Password Confirmation</label>
@@ -69,8 +76,10 @@ class Register extends React.Component {
               placeholder="Password Confirmation"
               name="passwordConfirmation"
               autoComplete="new-password"
+              required="true"
               onChange={this.handleChange}
             />
+            {this.state.errors.passwordConfirmation && <small>{this.state.errors.passwordConfirmation}</small>}
           </div>
 
           <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>

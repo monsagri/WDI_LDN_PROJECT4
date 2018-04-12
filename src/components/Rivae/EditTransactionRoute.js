@@ -40,8 +40,8 @@ class EditRoute extends React.Component {
       headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
-      .then(() => this.props.history.push(`/users/${Auth.getPayload().sub}/transactions`));
-    // .catch(err => this.setState( {errors: err.response.data.errors}));
+      .then(() => this.props.history.push(`/users/${Auth.getPayload().sub}/transactions`))
+      .catch(err => this.setState( {errors: err.response.data.errors}));
   }
 
   render() {
