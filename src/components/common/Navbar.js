@@ -4,6 +4,8 @@ import { Link , withRouter} from 'react-router-dom';
 import Auth from '../../lib/Auth';
 import Flash from '../../lib/Flash';
 
+import RivaeNav from '../../assets/styledComponents/RivaeNav';
+
 class Navbar extends React.Component {
 
 // we've created a property called state
@@ -30,7 +32,7 @@ class Navbar extends React.Component {
   render() {
     console.log(Auth.getPayload());
     return (
-      <nav className="navbar">
+      <RivaeNav className="navbar">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
           Rivae
@@ -56,7 +58,7 @@ class Navbar extends React.Component {
 
           </div>
         </div>
-      </nav>
+      </RivaeNav>
     );
   }
 }

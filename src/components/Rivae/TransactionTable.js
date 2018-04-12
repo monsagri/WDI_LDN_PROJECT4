@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import BasicTable from '../../assets/styledComponents/BasicTable';
 import DeleteButton from '../fragments/DeleteButton';
+import EditButton from '../fragments/EditButton';
 
 const TransactionTable = ({transactions, year, month, userId, remove}) =>{
   return(
@@ -22,7 +23,12 @@ const TransactionTable = ({transactions, year, month, userId, remove}) =>{
             <td>{transaction.amount}</td>
             <td>{transaction.category}</td>
             <td>{transaction.description}</td>
-            <td><Link className="button" to={`/users/${userId}/transaction/${transaction._id}/edit`}><i className="fas fa-edit"></i></Link></td>
+            <td>
+              <Link to={`/users/${userId}/transaction/${transaction._id}/edit`}>
+                <EditButton
+                  className="button"/>
+              </Link>
+            </td>
             <td>
               <DeleteButton
                 className="button"

@@ -8,6 +8,7 @@ import CategoryAdder from './CategoryAdder';
 
 import TransactionNav from '../../assets/styledComponents/TransactionNav';
 import FlexRowDiv from '../../assets/styledComponents/FlexRowDiv';
+import RivaeButton from '../../assets/styledComponents/RivaeButton';
 
 class BudgetRoute extends React.Component {
   state = {
@@ -154,15 +155,15 @@ class BudgetRoute extends React.Component {
 
         <TransactionNav>
           <FlexRowDiv>
-            <button
+            <RivaeButton
               className="button"
-              onClick={() => this.incrementMonth(-1)}>Previous Month</button>
+              onClick={() => this.incrementMonth(-1)}>Previous Month</RivaeButton>
           </FlexRowDiv>
 
           <FlexRowDiv>
-            <button
+            <RivaeButton
               className="button"
-              onClick={() => this.incrementMonth(1)}>Next Month</button>
+              onClick={() => this.incrementMonth(1)}>Next Month</RivaeButton>
           </FlexRowDiv>
         </TransactionNav>
 

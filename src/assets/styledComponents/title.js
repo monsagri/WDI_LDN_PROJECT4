@@ -5,6 +5,7 @@ const Title = styled.h1`
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
+  color: #313638;
 `;
 
 export default Title;

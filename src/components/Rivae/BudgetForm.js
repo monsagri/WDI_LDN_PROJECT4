@@ -1,6 +1,7 @@
 import React from 'react';
 
 import BasicTable from '../../assets/styledComponents/BasicTable';
+import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
 
 import DeleteButton from '../fragments/DeleteButton';
 
@@ -106,7 +107,7 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
           )}
         </tbody>
       </BasicTable>
-      <button className="button is-primary">Submit</button>
+      <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
     </form>
   );
 

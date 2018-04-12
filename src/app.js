@@ -18,12 +18,14 @@ import BudgetRoute from './components/Rivae/BudgetRoute';
 import RegisterRoute from './components/auth/Register';
 import LoginRoute from './components/auth/Login';
 
+import RivaeMain from './assets/styledComponents/RivaeMain';
+
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <main>
+        <RivaeMain>
           <Navbar />
           <FlashMessages />
 
@@ -37,7 +39,7 @@ class App extends React.Component {
             <Route path="/" component={HomeRoute} />
           </Switch>
 
-        </main>
+        </RivaeMain>
       </BrowserRouter>
     );
   }

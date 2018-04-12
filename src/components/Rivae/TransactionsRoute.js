@@ -6,6 +6,7 @@ import Auth from '../../lib/Auth';
 import Title from '../../assets/styledComponents/Title';
 import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
+import RivaeButton  from '../../assets/styledComponents/RivaeButton';
 
 import TransactionFormTable from './TransactionFormTable';
 import TransactionTable from './TransactionTable';
@@ -117,28 +118,28 @@ class BudgetRoute extends React.Component {
         <TransactionNav>
           <div>
             <h4 className="subtitle is-4">Input a single Transaction</h4>
-            <button
+            <RivaeButton
               className="button"
-              onClick={this.toggleNewTransaction}>New Transaction</button>
+              onClick={this.toggleNewTransaction}>New Transaction</RivaeButton>
           </div>
 
           <CSVReader handleChange={this.handleCSVChange} passCSV={this.passCSV}/>
         </TransactionNav>
 
-        
+
         <h3 className="title is-3">{this.state.months[this.state.month]} - {this.state.year}</h3>
 
         <TransactionNav>
           <FlexRowDiv>
-            <button
+            <RivaeButton
               className="button"
-              onClick={() => this.incrementMonth(-1)}>Previous Month</button>
+              onClick={() => this.incrementMonth(-1)}>Previous Month</RivaeButton>
           </FlexRowDiv>
 
           <FlexRowDiv>
-            <button
+            <RivaeButton
               className="button"
-              onClick={() => this.incrementMonth(1)}>Next Month</button>
+              onClick={() => this.incrementMonth(1)}>Next Month</RivaeButton>
           </FlexRowDiv>
         </TransactionNav>
 

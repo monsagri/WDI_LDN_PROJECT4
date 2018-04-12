@@ -1,24 +1,31 @@
 import React from 'react';
 
+import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
+import RivaeButton from '../../assets/styledComponents/RivaeButton';
+
 const CategoryAdder = ({toggled, openCategory, newCategoryChange, newCategorySave}) => {
-  return (<div>
-    {toggled &&
+  return (
+    <div>
+      {toggled &&
     <div>
       <input
         type="text"
         name={'newCategory'}
         onChange={newCategoryChange}
       />
-      <button className="button" type="button" onClick={newCategorySave}>Save Category</button>
+      <RivaeSubmitButton className="button" type="button" onClick={newCategorySave}>Save Category</RivaeSubmitButton>
     </div>
-    }
-    <button className="button" type="button" onClick={openCategory}>
-      {toggled
-        ? <span>Undo</span>
-        : <span>Add a Category</span>
       }
-    </button>
-  </div>);
+      {toggled
+        ? <RivaeDeleteButton className="button" type="button" onClick={openCategory}>
+        Undo
+        </RivaeDeleteButton>
+        : <RivaeButton className="button" type="button" onClick={openCategory}>
+        Add a Category
+        </RivaeButton>
+      }
+    </div>);
 };
 
 export default CategoryAdder;

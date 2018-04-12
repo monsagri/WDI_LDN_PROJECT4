@@ -4,6 +4,8 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 import Flash from '../../lib/Flash';
 
+import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+
 class Register extends React.Component {
 
   state = {
@@ -48,7 +50,7 @@ class Register extends React.Component {
           />
         </div>
 
-        <button className="button is-primary">Submit</button>
+        <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
       </form>
     );
   }

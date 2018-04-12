@@ -1,6 +1,8 @@
 import React from 'react';
 
 import BasicTable from '../../assets/styledComponents/BasicTable';
+import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+import RivaeDeleteButton from '../../assets/styledComponents/RivaeDeleteButton';
 
 const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
   console.log(data);
@@ -51,13 +53,13 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
               {data.errors.description && <small>{data.errors.description}</small>}
             </td>
             <td>
-              <button className="button is-primary">Submit</button>
+              <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
             </td>
             <td>
-              <button
-                className="button is-danger"
+              <RivaeDeleteButton
+                className="button"
                 type="button"
-                onClick={toggle}>Cancel</button>
+                onClick={toggle}>Cancel</RivaeDeleteButton>
             </td>
           </tr>
         </tbody>

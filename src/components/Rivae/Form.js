@@ -1,5 +1,7 @@
 import React from 'react';
 
+import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+
 const Form = ({ handleSubmit, handleChange, data}) => {
   console.log(data);
   return (
@@ -44,7 +46,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
         />
         {data.errors.description && <small>{data.errors.description}</small>}
       </div>
-      <button className="button is-primary">Submit</button>
+      <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
     </form>
   );
 

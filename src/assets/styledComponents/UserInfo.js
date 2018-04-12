@@ -6,6 +6,7 @@ const FlexColumnDiv = styled.div`
   justify-content: center;
   align-items: flex-end;
   align-content: center;
+  margin-top: 25px;
 `;
 
 export default FlexColumnDiv;
