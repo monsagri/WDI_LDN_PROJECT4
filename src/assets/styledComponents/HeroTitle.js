@@ -8,7 +8,7 @@ const HeroTitle = styled.h1`
   top: 10%;
   left: 47%;
   transform: translate(-10%, -47%);
-  color: white;
+  color: #E8E9EB;
 `;
 
 export default HeroTitle;

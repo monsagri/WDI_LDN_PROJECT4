@@ -7,7 +7,7 @@ const HeroSubTitle = styled.h2`
   top: 22%;
   left: 39%;
   transform: translate(-22%, -39%);
-  color: white;
+  color: #E8E9EB;
 `;
 
 export default HeroSubTitle;
