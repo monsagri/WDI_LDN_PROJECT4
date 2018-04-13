@@ -109,7 +109,7 @@ class BudgetRoute extends React.Component {
     })
       .then(res => {
         const editedUser = {...this.state.user};
-        editedUser.categories = res.data;
+        editedUser.sortedCategories = res.data;
         console.log('edited User is',editedUser);
         this.setState({ user: editedUser });
       });
@@ -129,12 +129,13 @@ class BudgetRoute extends React.Component {
     axios({
       method: 'post',
       url: `/api/users/${Auth.getPayload().sub}/budget/`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: { category: this.state.newCategory}
     })
       .then(res => {
-        console.log(res.data.categories);
+        console.log(res.data.sortedCategories);
         const editedUser = {...this.state.user};
-        editedUser.categories = res.data.categories;
+        editedUser.sortedCategories = res.data.sortedCategories;
         console.log('edited User is',editedUser);
         this.setState({ user: editedUser, newCategory: false });
       });

@@ -60,7 +60,7 @@ function deleteBudgetCategoryRoute(req,res,next) {
       const index = user.categories.indexOf(req.body.category);
       user.categories.splice(index, 1);
       user.save();
-      res.json(user.categories);
+      res.json(user.sortedCategories);
     })
     .catch(next);
 }
