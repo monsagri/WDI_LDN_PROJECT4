@@ -4,7 +4,7 @@
 Moneymapper is a web-based money-management application. It allows users to visualize their spending in order to get a better understanding of it and set monthly budgets.  
 Users can add transactions manually or upload their bank statements as CSV files (CSV upload is currently only supported for Monzo bank statements)
 
-###### [Visit website](https://moneyapperapp.herokuapp.com/) for best *viewing* experience (the application works on mobile but was not designed mobile-first).
+###### [Visit website](https://moneymapperapp.herokuapp.com/) for best *viewing* experience (the application works on mobile but was not designed mobile-first).
 
 ###### [View the project Brief](project_brief.md)
 
@@ -12,10 +12,10 @@ _________________
 
 ## Built With
 
-* ** *M*ongoDB** - Document database – used by the back-end application to store its data as JSON documents
-* ** *E*xpress** - Back-end web application framework running on top of Node.js
-* ** *R*eact** - JavaScript library used to build interactive/reactive user interfaces
-* ** *N*ode.js** - JavaScript runtime environment – lets you implement your application back-end in JavaScript
+* ***M*ongoDB** - Document database – used by the back-end application to store its data as JSON documents
+* ***E*xpress** - Back-end web application framework running on top of Node.js
+* ***R*eact** - JavaScript library used to build interactive/reactive user interfaces
+* ***N*ode.js** - JavaScript runtime environment – lets you implement your application back-end in JavaScript
 
 * **Axios** - Promise based HTTP client for the browser and Node.js
 * **bcrypt** - A password hasher to ensure user safety
