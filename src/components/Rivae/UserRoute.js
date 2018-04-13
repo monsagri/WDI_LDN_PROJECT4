@@ -86,8 +86,8 @@ class UserRoute extends React.Component{
         {/* Spending Pies */}
         <FlexRowDiv>
           <PieChartDiv>
-            <h3 className="subtitle is-3 has-text-centered">Spending By Category</h3>
-            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending.toFixed(2)}</h4>
+            <h3>Spending By Category</h3>
+            <h4>Total Spending: {this.state.user.totalSpending.toFixed(2)}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.spendingByCategory)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
@@ -115,8 +115,8 @@ class UserRoute extends React.Component{
           </PieChartDiv>
 
           <PieChartDiv>
-            <h3 className="subtitle is-3 has-text-centered">Spending By Payee</h3>
-            <h4 className="subtitle is-4 has-text-centered">Total Spending: {this.state.user.totalSpending.toFixed(2)}</h4>
+            <h3>Spending By Payee</h3>
+            <h4>Total Spending: {this.state.user.totalSpending.toFixed(2)}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.spendingByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
@@ -146,8 +146,8 @@ class UserRoute extends React.Component{
         {/* Income Pies */}
         <FlexRowDiv>
           <PieChartDiv>
-            <h3 className="subtitle is-3 has-text-centered">Income By Category</h3>
-            <h4 className="subtitle is-4 has-text-centered">Total Income: {this.state.user.totalIncome.toFixed(2)}</h4>
+            <h3>Income By Category</h3>
+            <h4>Total Income: {this.state.user.totalIncome.toFixed(2)}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.incomeByCategory)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
@@ -175,8 +175,8 @@ class UserRoute extends React.Component{
           </PieChartDiv>
 
           <PieChartDiv>
-            <h3 className="subtitle is-3 has-text-centered">Income By Payee</h3>
-            <h4 className="subtitle is-4 has-text-centered">Total Income: {this.state.user.totalIncome.toFixed(2)}</h4>
+            <h3>Income By Payee</h3>
+            <h4>Total Income: {this.state.user.totalIncome.toFixed(2)}</h4>
             <VictoryPie
               data={dataVis.absoluteGraphData(this.state.user.incomeByPayee)}
               colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy' ]}
