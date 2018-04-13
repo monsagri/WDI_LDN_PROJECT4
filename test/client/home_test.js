@@ -9,7 +9,6 @@ import { shallow } from 'enzyme';
 
 // Components to Test
 import Home from '../../src/components/Rivae/HomeRoute';
-// import App from '../../src/app';
 
 
 describe('Home tests', () => {
@@ -21,14 +20,7 @@ describe('Home tests', () => {
     done();
   });
 
-  // // Testing styled components is such a pain
-  // it('should render a Hero Div and a details Div', done => {
-  //
-  //   const wrapper = shallow(<Home />);
-  //   expect(wrapper.childAt(0).text()).to.equal('Rivae');
-  //   expect(wrapper.childAt(1).text()).to.equal('A new way of managing your money');
-  //   done();
-  // });
+  // Testing styled components is such a pain
 
   it('should render the Apps Title and Subtitle in the hero', done => {
 

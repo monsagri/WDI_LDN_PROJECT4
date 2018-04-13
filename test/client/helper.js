@@ -19,6 +19,25 @@ const { JSDOM } = require('jsdom');
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;
+// create a fake localStorage on our fake window
+window.localStorage = (function(){
+  var storage = {key: '5acce4a5a01de10004881f8f'};
+
+  return {
+    getItem: function(key) {
+      return storage[key] || null;
+    },
+    getToken: function() {
+      return storage.key || null;
+    },
+    removeItem: function(key) {
+      delete storage[key];
+    },
+    setItem: function(key, item) {
+      storage[key] = item;
+    }
+  };
+})();
 
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
