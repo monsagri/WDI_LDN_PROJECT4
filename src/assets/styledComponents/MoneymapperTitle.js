@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RivaeTitle = styled.h1`
+const MoneymapperTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
@@ -8,4 +8,4 @@ const RivaeTitle = styled.h1`
   color: #313638;
 `;
 
-export default RivaeTitle;
+export default MoneymapperTitle;

@@ -6,8 +6,8 @@ const HeroTitle = styled.h1`
   font-weight: bold;
   position: absolute;
   top: 10%;
-  left: 47%;
-  transform: translate(-10%, -47%);
+  left: 37%;
+  transform: translate(-10%, -37%);
   color: #E8E9EB;
 `;
 

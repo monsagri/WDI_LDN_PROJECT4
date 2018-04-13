@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+import MoneymapperSubmitButton from '../../assets/styledComponents/MoneymapperSubmitButton';
 
 const Form = ({ handleSubmit, handleChange, data}) => {
   console.log(data);
@@ -51,7 +51,7 @@ const Form = ({ handleSubmit, handleChange, data}) => {
         />
         {data.errors.description && <small>{data.errors.description}</small>}
       </div>
-      <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
+      <MoneymapperSubmitButton className="button">Submit</MoneymapperSubmitButton>
     </form>
   );
 

@@ -8,7 +8,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
 // Components to Test
-import Budget from '../../src/components/Rivae/BudgetRoute';
+import Budget from '../../src/components/Moneymapper/BudgetRoute';
 
 
 describe('Budget tests', () => {

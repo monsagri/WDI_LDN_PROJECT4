@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import Flash from '../../lib/Flash';
 
-import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
-import RivaeFormContainer from '../../assets/styledComponents/RivaeFormContainer';
+import MoneymapperSubmitButton from '../../assets/styledComponents/MoneymapperSubmitButton';
+import MoneymapperFormContainer from '../../assets/styledComponents/MoneymapperFormContainer';
 
 class Register extends React.Component {
 
@@ -30,7 +30,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <RivaeFormContainer class="container">
+      <MoneymapperFormContainer class="container">
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label htmlFor="username">Username</label>
@@ -82,9 +82,9 @@ class Register extends React.Component {
             {this.state.errors.passwordConfirmation && <small>{this.state.errors.passwordConfirmation}</small>}
           </div>
 
-          <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
+          <MoneymapperSubmitButton className="button">Submit</MoneymapperSubmitButton>
         </form>
-      </RivaeFormContainer>
+      </MoneymapperFormContainer>
 
     );
   }

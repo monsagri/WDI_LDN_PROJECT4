@@ -1,12 +1,12 @@
 import React from 'react';
 
-import RivaeEditButton from '../../assets/styledComponents/RivaeEditButton';
+import MoneymapperEditButton from '../../assets/styledComponents/MoneymapperEditButton';
 
 const EditButton = ({className, onClick, type}) => {
   return(
-    <RivaeEditButton className={className} onClick={onClick} type={type}>
+    <MoneymapperEditButton className={className} onClick={onClick} type={type}>
       <i className="fas fa-edit"></i>
-    </RivaeEditButton>
+    </MoneymapperEditButton>
   );
 };
 

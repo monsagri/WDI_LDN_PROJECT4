@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RivaeMain = styled.main`
+const MoneymapperMain = styled.main`
   background-color: #E8E9EB;
   color: #313638;
   ${'' /* font-family: 'Playfair Display', serif; */}
@@ -18,4 +18,4 @@ const RivaeMain = styled.main`
   }
 `;
 
-export default RivaeMain;
+export default MoneymapperMain;

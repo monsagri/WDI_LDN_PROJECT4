@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RivaeFormContainer = styled.div`
+const MoneymapperFormContainer = styled.div`
   margin: 10vh auto;
   display: flex;
   justify-content: center;
@@ -22,4 +22,4 @@ const RivaeFormContainer = styled.div`
   }
 `;
 
-export default RivaeFormContainer;
+export default MoneymapperFormContainer;

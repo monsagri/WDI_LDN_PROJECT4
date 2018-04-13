@@ -1,7 +1,7 @@
-![](https://i.imgur.com/jeBZQSc.jpg)
-# Rivae
+![](https://i.imgur.com/YZ8XIzY.jpg)
+# Moneymapper
 
-Rivae is a web-based money-management application. It allows users to visualize their spending in order to get a better understanding of it and set monthly budgets.
+Moneymapper is a web-based money-management application. It allows users to visualize their spending in order to get a better understanding of it and set monthly budgets.
 
 ## Built With
 
@@ -48,7 +48,7 @@ yarn start:client
 
 ###### Testing was done using Mocha, Chai, Enzyme, Supertest and NYC.
 
-Rivae comes with both back-end and front-end testing. All testing is test-coverage that was added post completion of features, I did not use TDD in this project.
+Moneymapper comes with both back-end and front-end testing. All testing is test-coverage that was added post completion of features, I did not use TDD in this project.
 
 
 ### Backend Tests
@@ -71,7 +71,7 @@ yarn test:client
 
 ## Further development
 
-I am happy with the current state of Rivae as my final Project for WDI at General Assembly, however there are a lot of features and changes I want to add to turn into a fully functional product.
+I am happy with the current state of Moneymapper as my final Project for WDI at General Assembly, however there are a lot of features and changes I want to add to turn into a fully functional product.
 
 #### Potential features
 

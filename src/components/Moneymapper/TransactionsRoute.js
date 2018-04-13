@@ -6,8 +6,8 @@ import Auth from '../../lib/Auth';
 import FlexRowDiv  from '../../assets/styledComponents/FlexRowDiv';
 import FlexColumnDiv  from '../../assets/styledComponents/FlexColumnDiv';
 import TransactionNav  from '../../assets/styledComponents/TransactionNav';
-import RivaeButton  from '../../assets/styledComponents/RivaeButton';
-import RivaeTitle from '../../assets/styledComponents/RivaeTitle';
+import MoneymapperButton  from '../../assets/styledComponents/MoneymapperButton';
+import MoneymapperTitle from '../../assets/styledComponents/MoneymapperTitle';
 
 import TransactionFormTable from './TransactionFormTable';
 import TransactionTable from './TransactionTable';
@@ -120,16 +120,16 @@ class BudgetRoute extends React.Component {
     return (
       <div className="container">
 
-        <RivaeTitle>Your Transactions</RivaeTitle>
+        <MoneymapperTitle>Your Transactions</MoneymapperTitle>
 
         <FlexColumnDiv>
           <div>
-            <RivaeButton
+            <MoneymapperButton
               className="button"
-              onClick={this.toggleNewTransaction}>New Transaction</RivaeButton>
-            {this.state.bulkTransactionToggle || <RivaeButton
+              onClick={this.toggleNewTransaction}>New Transaction</MoneymapperButton>
+            {this.state.bulkTransactionToggle || <MoneymapperButton
               className="button"
-              onClick={this.toggleBulkTransaction}>Upload CSV File</RivaeButton>}
+              onClick={this.toggleBulkTransaction}>Upload CSV File</MoneymapperButton>}
           </div>
           <div>
             {this.state.bulkTransactionToggle && <CSVReader
@@ -145,15 +145,15 @@ class BudgetRoute extends React.Component {
 
         <TransactionNav>
           <FlexRowDiv>
-            <RivaeButton
+            <MoneymapperButton
               className="button"
-              onClick={() => this.incrementMonth(-1)}>Previous Month</RivaeButton>
+              onClick={() => this.incrementMonth(-1)}>Previous Month</MoneymapperButton>
           </FlexRowDiv>
 
           <FlexRowDiv>
-            <RivaeButton
+            <MoneymapperButton
               className="button"
-              onClick={() => this.incrementMonth(1)}>Next Month</RivaeButton>
+              onClick={() => this.incrementMonth(1)}>Next Month</MoneymapperButton>
           </FlexRowDiv>
         </TransactionNav>
 

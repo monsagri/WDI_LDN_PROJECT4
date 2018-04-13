@@ -4,7 +4,7 @@ import { Link , withRouter} from 'react-router-dom';
 import Auth from '../../lib/Auth';
 import Flash from '../../lib/Flash';
 
-import RivaeNav from '../../assets/styledComponents/RivaeNav';
+import MoneymapperNav from '../../assets/styledComponents/MoneymapperNav';
 
 class Navbar extends React.Component {
 
@@ -32,10 +32,10 @@ class Navbar extends React.Component {
   render() {
     console.log(Auth.getPayload());
     return (
-      <RivaeNav className="navbar">
+      <MoneymapperNav className="navbar">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-          Rivae
+          MoneyMapper
           </Link>
           <div
             className={`navbar-burger ${this.state.navIsOpen ? 'is-active' : ''}`}
@@ -58,7 +58,7 @@ class Navbar extends React.Component {
 
           </div>
         </div>
-      </RivaeNav>
+      </MoneymapperNav>
     );
   }
 }

@@ -4,7 +4,7 @@ import Auth from '../../lib/Auth';
 
 import Form from './Form';
 
-import RivaeFormContainer from '../../assets/styledComponents/RivaeFormContainer';
+import MoneymapperFormContainer from '../../assets/styledComponents/MoneymapperFormContainer';
 
 class EditRoute extends React.Component {
 
@@ -46,13 +46,13 @@ class EditRoute extends React.Component {
 
   render() {
     return (
-      <RivaeFormContainer className="container">
+      <MoneymapperFormContainer className="container">
         <Form
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           data={this.state}
         />
-      </RivaeFormContainer>
+      </MoneymapperFormContainer>
     );
 
   }

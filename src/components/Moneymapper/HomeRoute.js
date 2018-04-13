@@ -10,7 +10,7 @@ const HomeRoute = () => {
   return (
     <div>
       <HeroDiv>
-        <HeroTitle>Rivae</HeroTitle>
+        <HeroTitle>MoneyMapper</HeroTitle>
         <HeroSubTitle>A new way of managing your money</HeroSubTitle>
       </HeroDiv>
       <HomeDetails className="columns is-mobile">
@@ -24,7 +24,7 @@ const HomeRoute = () => {
         </HomeDetailsColumn>
         <HomeDetailsColumn className="column is-one-third-desktop is-full-mobile">
           <h3 className="subtitle is-3 has-text-centered">Easy Comparisons</h3>
-          <p>Rivae offers it`s users an unprecedented level of comparison data. We aggregate everyones data to provide you with a context as to where you are at. This service is purely opt-in. </p>
+          <p>Moneymapper offers it`s users an unprecedented level of comparison data. We aggregate everyones data to provide you with a context as to where you are at. This service is purely opt-in. </p>
         </HomeDetailsColumn>
       </HomeDetails>
     </div>

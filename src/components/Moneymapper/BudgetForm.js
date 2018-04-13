@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BasicTable from '../../assets/styledComponents/BasicTable';
-import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
+import MoneymapperSubmitButton from '../../assets/styledComponents/MoneymapperSubmitButton';
 
 import DeleteButton from '../fragments/DeleteButton';
 
@@ -108,7 +108,7 @@ const Form = ({ handleSubmit, handleChange, removeBudgetCategory, data}) => {
           )}
         </tbody>
       </BasicTable>
-      <RivaeSubmitButton className="button is-pulled-right">Submit</RivaeSubmitButton>
+      <MoneymapperSubmitButton className="button is-pulled-right">Submit</MoneymapperSubmitButton>
     </form>
   );
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const RivaeNav = styled.nav`
+const MoneymapperNav = styled.nav`
   background-color: #E0DFD5;
   font-size: 1.1rem;
 
@@ -14,4 +14,4 @@ const RivaeNav = styled.nav`
   }
 `;
 
-export default RivaeNav;
+export default MoneymapperNav;

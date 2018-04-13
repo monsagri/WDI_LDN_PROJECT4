@@ -9,23 +9,23 @@ import PrivateRoute from './lib/PrivateRoute';
 import FlashMessages from './components/common/FlashMessages';
 import Navbar from './components/common/Navbar';
 
-import HomeRoute from './components/Rivae/HomeRoute';
-import UserRoute from './components/Rivae/UserRoute';
-import EditTransactionRoute from './components/Rivae/EditTransactionRoute';
-import TransactionsRoute from './components/Rivae/TransactionsRoute';
-import BudgetRoute from './components/Rivae/BudgetRoute';
+import HomeRoute from './components/Moneymapper/HomeRoute';
+import UserRoute from './components/Moneymapper/UserRoute';
+import EditTransactionRoute from './components/Moneymapper/EditTransactionRoute';
+import TransactionsRoute from './components/Moneymapper/TransactionsRoute';
+import BudgetRoute from './components/Moneymapper/BudgetRoute';
 
 import RegisterRoute from './components/auth/Register';
 import LoginRoute from './components/auth/Login';
 
-import RivaeMain from './assets/styledComponents/RivaeMain';
+import MoneymapperMain from './assets/styledComponents/MoneymapperMain';
 
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <RivaeMain>
+        <MoneymapperMain>
           <Navbar />
           <FlashMessages />
 
@@ -39,7 +39,7 @@ class App extends React.Component {
             <Route path="/" component={HomeRoute} />
           </Switch>
 
-        </RivaeMain>
+        </MoneymapperMain>
       </BrowserRouter>
     );
   }

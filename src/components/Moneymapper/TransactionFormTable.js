@@ -1,8 +1,8 @@
 import React from 'react';
 
 import InputTable from '../../assets/styledComponents/InputTable';
-import RivaeSubmitButton from '../../assets/styledComponents/RivaeSubmitButton';
-import RivaeCancelButton from '../../assets/styledComponents/RivaeCancelButton';
+import MoneymapperSubmitButton from '../../assets/styledComponents/MoneymapperSubmitButton';
+import MoneymapperCancelButton from '../../assets/styledComponents/MoneymapperCancelButton';
 
 const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
   console.log(data);
@@ -57,13 +57,13 @@ const Form = ({ handleSubmit, handleChange, data, display, toggle}) => {
               {data.errors.description && <small>{data.errors.description}</small>}
             </td>
             <td>
-              <RivaeSubmitButton className="button">Submit</RivaeSubmitButton>
+              <MoneymapperSubmitButton className="button">Submit</MoneymapperSubmitButton>
             </td>
             <td>
-              <RivaeCancelButton
+              <MoneymapperCancelButton
                 className="button"
                 type="button"
-                onClick={toggle}>Cancel</RivaeCancelButton>
+                onClick={toggle}>Cancel</MoneymapperCancelButton>
             </td>
           </tr>
         </tbody>
