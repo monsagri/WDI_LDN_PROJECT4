@@ -5,8 +5,8 @@ const HeroSubTitle = styled.h2`
   font-size: 2.5rem;
   position: absolute;
   top: 25%;
-  left: 40%;
-  transform: translate(-25%, -40%);
+  left: 41%;
+  transform: translate(-25%, -41%);
   color: #E8E9EB;
   ${'' /* background-color: rgba(10,10,10,0.2); */}
 `;
