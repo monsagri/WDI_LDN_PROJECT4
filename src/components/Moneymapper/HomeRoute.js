@@ -20,11 +20,11 @@ const HomeRoute = () => {
         </HomeDetailsColumn>
         <HomeDetailsColumn className="column is-one-third-desktop is-full-mobile">
           <h3 className="subtitle is-3 has-text-centered">Strong Budgets</h3>
-          <p>Once you have a grasp on where your moeny is going, the next step is taking control. We help you create easy monthly budgets, automatically tracking your spending and showing you areas to wokr on.</p>
+          <p>Once you have a grasp on where your money is going, the next step is taking control. We help you create easy monthly budgets, automatically tracking your spending and showing you areas to wokr on.</p>
         </HomeDetailsColumn>
         <HomeDetailsColumn className="column is-one-third-desktop is-full-mobile">
           <h3 className="subtitle is-3 has-text-centered">Easy Comparisons</h3>
-          <p>Moneymapper offers it`s users an unprecedented level of comparison data. We aggregate everyones data to provide you with a context as to where you are at. This service is purely opt-in. </p>
+          <p>Moneymapper offers its users an unprecedented level of comparison data. We aggregate everyones data to provide you with a context as to where you are at. This service is purely opt-in. </p>
         </HomeDetailsColumn>
       </HomeDetails>
     </div>
