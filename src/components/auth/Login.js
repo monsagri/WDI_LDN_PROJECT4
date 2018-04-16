@@ -43,7 +43,7 @@ class Register extends React.Component {
               required="true"
               onChange={this.handleChange}
             />
-            {this.state.errors.email && <small>{this.state.errors.email}</small>}
+            {this.state.errors && <small>{this.state.errors.email}</small>}
           </div>
           <div className="field">
             <label htmlFor="password">Password</label>
@@ -56,7 +56,7 @@ class Register extends React.Component {
               required="true"
               onChange={this.handleChange}
             />
-            {this.state.errors.password && <small>{this.state.errors.password}</small>}
+            {this.state.errors && <small>{this.state.errors.password}</small>}
           </div>
 
           <MoneymapperSubmitButton className="button">Submit</MoneymapperSubmitButton>

@@ -8,28 +8,20 @@ Users can add transactions manually or upload their bank statements as CSV files
 
 ###### [View the project Brief](project_brief.md)
 
-_________________
-
-## Built With
-
-* ***M*ongoDB** - Document database – used by the back-end application to store its data as JSON documents
-* ***E*xpress** - Back-end web application framework running on top of Node.js
-* ***R*eact** - JavaScript library used to build interactive/reactive user interfaces
-* ***N*ode.js** - JavaScript runtime environment – lets you implement your application back-end in JavaScript
-
-* **Axios** - Promise based HTTP client for the browser and Node.js
-* **bcrypt** - A password hasher to ensure user safety
-* **bluebird** - Javascript Promise library
-* **Fast-csv** - A library that provides CSV parsing and formatting.
-* **jsonwebtoken** - JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties.
-* **lodash** - JavaScript utility library
-* **mongoose** - MongoDB modeling for node.js
-* **Victory** - Victory is a set of modular charting components for React and React Native.
-
-* **Bulma** - CSS Framework based on Flexbox
-* **Styled-components** - Utilising tagged template literals and CSS, styled-components allows you to write actual CSS code in JS to style your components.
 
 _________________
+
+<a href="#getting-started"> 1. Getting started</a>  
+<a href="#running-the-tests"> 2. Running the Tests</a>  
+<a href="#process-review"> 3. Process Review  </a>  
+  <a href="wins"> 3.1 Wins  </a>  
+  <a href="#challenges"> 3.2 Challenges</a>    
+  <a href="#code-example">   3.3 Code Example</a>   
+<a href="#further-development"> 4. Further development  </a>   
+<a href="#built-with"> 5. Built with  </a>   
+<a href="#authors"> 6. Authors  </a>   
+<a href="#license"> 7. License  </a>   
+
 
 ## Getting Started
 
@@ -107,7 +99,7 @@ _________________
 
 ## Code example - Transactions By Month Virtual
 
-```
+``` javascript
 userSchema
   .virtual('transactionsByMonth')
   .get(function findTransactionsByMonth() {
@@ -160,7 +152,30 @@ I am happy with the current state of Moneymapper as my final Project for WDI at 
 * Refactor some of the frontend components
 * More fine tuning on the styling
 
+
 _________________
+
+## Built With
+
+* ***M*ongoDB** - Document database – used by the back-end application to store its data as JSON documents
+* ***E*xpress** - Back-end web application framework running on top of Node.js
+* ***R*eact** - JavaScript library used to build interactive/reactive user interfaces
+* ***N*ode.js** - JavaScript runtime environment – lets you implement your application back-end in JavaScript
+
+* **Axios** - Promise based HTTP client for the browser and Node.js
+* **bcrypt** - A password hasher to ensure user safety
+* **bluebird** - Javascript Promise library
+* **Fast-csv** - A library that provides CSV parsing and formatting.
+* **jsonwebtoken** - JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties.
+* **lodash** - JavaScript utility library
+* **mongoose** - MongoDB modeling for node.js
+* **Victory** - Victory is a set of modular charting components for React and React Native.
+
+* **Bulma** - CSS Framework based on Flexbox
+* **Styled-components** - Utilising tagged template literals and CSS, styled-components allows you to write actual CSS code in JS to style your components.
+
+_________________
+
 
 
 ## Authors
